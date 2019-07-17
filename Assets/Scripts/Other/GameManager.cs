@@ -125,7 +125,14 @@ public class GameManager : MonoBehaviour
         {
             UIManager.Instance.HideWinText();
             Scene scene = SceneManager.GetActiveScene();
-            SceneManager.LoadScene(scene.buildIndex + 1);
+            if (scene.buildIndex == 5)
+            {
+                SceneManager.LoadScene(scene.buildIndex - 4);
+            }
+            else
+            {
+                SceneManager.LoadScene(scene.buildIndex + 1);
+            }
         }
     }
     
