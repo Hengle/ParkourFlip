@@ -1203,6 +1203,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 4795eb90488a24348bd68f554699156c, type: 2}
+    - target: {fileID: 3828483078590411636, guid: 5a4ea1836668ba24690d542e4a172b86,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7230749741371998272, guid: 5a4ea1836668ba24690d542e4a172b86,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -1304,7 +1309,6 @@ GameObject:
   - component: {fileID: 888392432}
   - component: {fileID: 888392431}
   - component: {fileID: 888392430}
-  - component: {fileID: 888392434}
   m_Layer: 0
   m_Name: Jump (1)
   m_TagString: Untagged
@@ -1319,16 +1323,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 888392428}
-  m_LocalRotation: {x: -0, y: 0.56063807, z: 0.0000000074505797, w: 0.8280609}
-  m_LocalPosition: {x: 0, y: 0, z: 21.1}
+  m_LocalRotation: {x: 0.0000000014403134, y: 0.71013975, z: 0.000000007310037, w: 0.7040608}
+  m_LocalPosition: {x: 0, y: 0, z: 5.8}
   m_LocalScale: {x: 1.2839434, y: 2.2184875, z: 2.2541718}
   m_Children: []
   m_Father: {fileID: 1972484807}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: -111.799995, y: 89.99999, z: -90}
+  m_LocalEulerAnglesHint: {x: 0, y: 90.493004, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 20, y: 18.5}
+  m_AnchoredPosition: {x: 32.6, y: 11.23}
   m_SizeDelta: {x: 6.82, y: 2.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &888392430
@@ -1497,25 +1501,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!95 &888392434
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 888392428}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: b954801791e96464cac5ac2a786a8ff7, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 1
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &966256175 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6937145195113935381, guid: bfe0a88d629311446976b179b6919a6b,
@@ -3753,7 +3738,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.062222224, y: 0.034862116}
   m_AnchorMax: {x: 0.9317778, y: 0.119}
-  m_AnchoredPosition: {x: -348.5, y: -118.5}
+  m_AnchoredPosition: {x: -348.5, y: -63}
   m_SizeDelta: {x: -683, y: -35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2001247531
@@ -3786,8 +3771,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4287082290
+  m_fontColor: {r: 0.19607843, g: 0.6862745, b: 0.5294118, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -3805,8 +3790,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 90
-  m_fontSizeBase: 90
+  m_fontSize: 106.7
+  m_fontSizeBase: 106.7
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -3912,7 +3897,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.15522224, y: 0.05975235}
   m_AnchorMax: {x: 0.8384445, y: 0.40078047}
-  m_AnchoredPosition: {x: -0.8000488, y: -3.5}
+  m_AnchoredPosition: {x: -156, y: 36}
   m_SizeDelta: {x: -3.9100037, y: -6.4299927}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2009530393
@@ -3964,8 +3949,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 147.5
-  m_fontSizeBase: 147.5
+  m_fontSize: 138.3
+  m_fontSizeBase: 138.3
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -4002,7 +3987,7 @@ MonoBehaviour:
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 13.165815, y: 0, z: -300.18094, w: 0}
   m_textInfo:
     textComponent: {fileID: 2009530393}
     characterCount: 12
@@ -4010,7 +3995,7 @@ MonoBehaviour:
     spaceCount: 2
     wordCount: 3
     linkCount: 0
-    lineCount: 2
+    lineCount: 1
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
