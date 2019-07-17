@@ -26,24 +26,29 @@ MonoBehaviour:
   UserMessagesFailed: 0
   CustomArea: 
   gameKey:
-  - a49c0c30f998e3da446351edc78566eb
+  - 3a8742397d0b3e07878419fd13502a14
+  - e98539875640d305df6abf87f7db4717
   secretKey:
-  - d0c6eeb2167494db7b1328803484cd32bbec67c9
+  - 7058ec13d68982998e64254023ade33c5a3f629c
+  - 90fe37f8469750704cb88ebb7d2875cf8adcb28a
   Build:
   - 0.1
+  - 0.1
   SelectedPlatformStudio:
-  - HeroGames
+  - Hero Games
+  - Hero Games
   SelectedPlatformGame:
-  - ParkourFlip
-  SelectedPlatformGameID: 33300100
-  SelectedStudio: 01000000
-  SelectedGame: 03000000
+  - ParkourFlip - Android
+  - ParkourFlip - iOS
+  SelectedPlatformGameID: ab300100ac300100
+  SelectedStudio: 0100000001000000
+  SelectedGame: 0300000004000000
   NewVersion: 
   Changes: 
   SignUpOpen: 0
   StudioName: HeroGames
-  GameName: ParkourFlip
-  EmailGA: hakanburakkaraman@gmail.com
+  GameName: ParkourFlip - iOS
+  EmailGA: melihcol@gmail.com
   IntroScreen: 0
   InfoLogEditor: 1
   InfoLogBuild: 1
@@ -57,12 +62,12 @@ MonoBehaviour:
   ResourceItemTypes: []
   ResourceCurrencies: []
   LastCreatedGamePlatform: -1
-  Platforms: 0b000000
+  Platforms: 0b00000008000000
   CurrentInspectorState: 1
   ClosedHints: 
   DisplayHints: 0
   DisplayHintsScrollState: {x: 0, y: 0}
-  Logo: {fileID: 0}
+  Logo: {fileID: 2800000, guid: 98df8f9c5678a4e5d964caa1244e8958, type: 3}
   UpdateIcon: {fileID: 0}
   InfoIcon: {fileID: 0}
   DeleteIcon: {fileID: 0}
@@ -84,7 +89,7 @@ MonoBehaviour:
   IncludeGooglePlay: 1
   FpsCriticalThreshold: 20
   FpsCirticalSubmitInterval: 1
-  PlatformFoldOut: 01
+  PlatformFoldOut: 0000
   CustomDimensions01FoldOut: 0
   CustomDimensions02FoldOut: 0
   CustomDimensions03FoldOut: 0
