@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using GameAnalyticsSDK;
+using Facebook.Unity;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -16,12 +17,21 @@ public class TransitionScene : MonoBehaviour {
 	}
 
 	// Use this for initialization
-	void Start () {
-
+	void Start () 
+   {
+        FB.Init(OnFacebookInitialize);
 	}
-	
-	// Update is called once per frame
-	void Update ()
+
+    void OnFacebookInitialize()
+    {
+        if (FB.IsInitialized)
+        {
+            FB.ActivateApp();
+        }
+    }
+
+    // Update is called once per frame
+    void Update ()
 	{
 		StartCoroutine(LoadScene());
 	}
