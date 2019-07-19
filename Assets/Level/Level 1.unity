@@ -630,7 +630,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 900, y: 1600}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -1357,8 +1357,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: Hold To Flip
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b5515552547bca945a1063da5344a46d, type: 2}
-  m_sharedMaterial: {fileID: 6567611363390231522, guid: b5515552547bca945a1063da5344a46d,
+  m_fontAsset: {fileID: 11400000, guid: 8072aa5b03208ea4fbb4783476b3015f, type: 2}
+  m_sharedMaterial: {fileID: 6567611363390231522, guid: 8072aa5b03208ea4fbb4783476b3015f,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1481,7 +1481,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 6567611363390231522, guid: b5515552547bca945a1063da5344a46d, type: 2}
+  - {fileID: 6567611363390231522, guid: 8072aa5b03208ea4fbb4783476b3015f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1997,7 +1997,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_NoiseProfile: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
-  m_AmplitudeGain: 0
+  m_AmplitudeGain: 1.2
   m_FrequencyGain: 2
   mNoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!114 &1268956245
@@ -2472,7 +2472,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.28366664, y: 0.22629204}
   m_AnchorMax: {x: 0.7442223, y: 0.31687373}
-  m_AnchoredPosition: {x: 0.855011, y: -0.5}
+  m_AnchoredPosition: {x: 0.8550415, y: -0.5}
   m_SizeDelta: {x: -0.29000854, y: 2.605011}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1545653057

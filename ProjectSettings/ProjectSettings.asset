@@ -726,6 +726,8 @@ PlayerSettings:
       daydreamIconForeground: {fileID: 0}
       daydreamIconBackground: {fileID: 0}
   cloudServicesEnabled:
+    Build: 1
+    Collab: 1
     UNet: 1
   luminIcon:
     m_Name: 
@@ -746,10 +748,10 @@ PlayerSettings:
   facebookXfbml: 0
   facebookFrictionlessRequests: 1
   apiCompatibilityLevel: 6
-  cloudProjectId: 
+  cloudProjectId: efcabbb0-4b84-4da9-bf1d-4fe976b07e81
   framebufferDepthMemorylessMode: 0
-  projectName: 
-  organizationId: 
+  projectName: Parkour Flip
+  organizationId: herogamestudio
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0
