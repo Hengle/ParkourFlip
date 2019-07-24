@@ -7,6 +7,12 @@ public class ComboController : MonoBehaviour
     private readonly  Vector3 _distance = new Vector3(0,1.7f,0);
     public Rigidbody rb;
     // Update is called once per frame
+
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
+
     void Update()
     {
         transform.position = Player.Instance.transform.position - _distance ;
@@ -21,6 +27,8 @@ public class ComboController : MonoBehaviour
             {
                 StartCoroutine(UIManager.Instance.ShowComboText());    
                 GameManager.Instance.combo += 1;
+                Taptic.Medium();
+                Debug.Log("Combo");
             }
         }
     }

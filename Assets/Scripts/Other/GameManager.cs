@@ -5,6 +5,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms.Impl;
 using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
@@ -35,6 +36,7 @@ public class GameManager : MonoBehaviour
     public float gravity;
     public float height;
     public bool gameEnd;
+    public int coinCount;
 
     
    /* public enum STATE
@@ -64,6 +66,7 @@ public class GameManager : MonoBehaviour
     
     private void Update()
     {
+        
         if (!gameEnd)
         {
             BuidingsControl();
@@ -90,7 +93,6 @@ public class GameManager : MonoBehaviour
                 {
                     _nextTarget = BuildingsList[i+1].target;
                 }
-               
             }
         }
     }
@@ -149,6 +151,7 @@ public class GameManager : MonoBehaviour
     }
     public IEnumerator DeadAnim()
     {
+        Player.Instance.CamTarget.transform.position = Player.Instance.transform.position;
         StartCoroutine(ParticleManager.Instance.DeathEffects());
         Player.Instance._rb.useGravity = true;
         Player.Instance._collider.enabled = !Player.Instance._collider.enabled;

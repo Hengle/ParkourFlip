@@ -30,27 +30,33 @@ public class Player : MonoBehaviour
     public Collider _collider;
     public float speed;
     private float rotationPowerTime;
+    private float frictionEffect;
+    private float desiredPosX;
+    private readonly  Vector3 _eulerAngleVelocity = new Vector3(0,0,460);
+    public GameObject CamTarget;
+    
+    //Booleans
+    private bool startBuilding; //Its for starting to game.
+    public bool _isGrounded;
     public bool _isTurn;
     private bool isStop = true;
-    private bool isFlying;
-    public bool _isGrounded;
-    private readonly  Vector3 _eulerAngleVelocity = new Vector3(0,0,460);
-    private float frictionEffect;
-    private bool startBuilding; //Its for starting to game.
-    private float desiredPosX;
     public bool isDead;
+    private bool canJump;
+
+    //ForAnimation
     public Animator _Anim;
+    public bool isWin;
     private bool isMoving;
     private bool isJump;
-    public bool isWin;
-    
+    private bool isFlying;
+    private bool isBigObstacle;
+    private bool isSmallObstacle;
     
     // Particle Effects
     private GameObject jumpingEffects;
     private GameObject landingEffects;
     private GameObject star;
-    //ForAnimation
-    
+   
     
     Vector3 CalculateLauncVelocity()
     {
@@ -73,14 +79,18 @@ public class Player : MonoBehaviour
     {
         if (!isDead)
         {
-            DoFlip();     
+            DoFlip();
+            
+            if (_isGrounded && !isWin)
+            {
+                PlayerMovement();
+            }
         }
     }
 
     void Update()
     {
         Animation();
-
         if (!startBuilding)
         {
             isMoving = false;
@@ -91,12 +101,12 @@ public class Player : MonoBehaviour
             FlipControl();
             SmoothFlip();
         }
+       
     }
 
     private void Animation()
     {
         _Anim.SetFloat("Speed" , rotationPowerTime);
-
         
         if (!isMoving)
         {
@@ -116,15 +126,41 @@ public class Player : MonoBehaviour
         {
             _Anim.SetBool("IsFlying", false);
         }
+        
+        if (isBigObstacle)
+        {
+            _Anim.SetBool("isBigObstacle", true);
+            speed -= Time.deltaTime * 400;
+        }
+        else
+        {
+            _Anim.SetBool("isBigObstacle", false);
+            
+           if (speed < 900)
+            {
+                speed += Time.deltaTime * 400;
+            }
+            else
+            {
+                speed = 900f;
+            }
+        }
+        
+        if (isSmallObstacle)
+        {
+            _Anim.SetBool("isSmallObstacle", true);
+        }
+        else
+        {
+            _Anim.SetBool("isSmallObstacle", false);
+        }
 
         if (isWin)
         {
             _Anim.SetBool("IsWin", true);
         }
         
-        
     }
-
     private void DoFlip()
     {
         if (!_isGrounded)
@@ -140,33 +176,35 @@ public class Player : MonoBehaviour
                 Quaternion friction = Quaternion.Euler(0,0,150 * rotationPowerTime* frictionEffect * Time.deltaTime);
                 _rb.MoveRotation(_rb.rotation * friction );
             } 
-        }
-        else if (_isGrounded && !GameManager.Instance.gameEnd)
-        {
-            PlayerMovement();
-        }
-     
+        }    
     }
     private void FlipControl()
     {
         if (Input.GetMouseButtonDown(0) )
          {
-              GameManager.Instance.StartGame();
-              _isTurn = true;
-              isStop = false;
-              if (isMoving)
-              {
-                  rotationPowerTime = .5f;
-              }
+             GameManager.Instance.StartGame();
+             if (canJump)
+             {
+                 _isTurn = true;
+             }
+             isStop = false;
+             if (isMoving)
+             {
+                 rotationPowerTime = .5f;
+             }
               
-              if (startBuilding)
-              {
-                  isJump = true;
-                  Lauch();
-              }
-              startBuilding = true;
+             if (startBuilding)
+             {
+                 isJump = true;
+                 if (canJump)
+                 {
+                     Lauch();
+                 }
+             }
+             startBuilding = true; 
              
          }
+        
         if (Input.GetMouseButtonUp(0))
          {
               _isTurn = false;
@@ -221,6 +259,7 @@ public class Player : MonoBehaviour
 
     void Lauch()
     {
+        
         if (_isGrounded && !GameManager.Instance.gameEnd)
         {
             desiredPosX = GameManager.Instance._nextTarget.position.x - _rb.position.x;
@@ -237,14 +276,13 @@ public class Player : MonoBehaviour
             {
                 GameManager.Instance.height = Random.Range(15,18);
             }
-           
+            
             Physics.gravity = Vector3.up * GameManager.Instance.gravity;
             _rb.useGravity = true;
             StartCoroutine(ParticleManager.Instance.JumpingEffects(jumpingEffects));
             CameraShake.Instance.isAnimationPlaying = true;
             _rb.velocity = CalculateLauncVelocity();
         }
-        
     }
    
     public void PlayerMovement()
@@ -253,8 +291,11 @@ public class Player : MonoBehaviour
         {
             if (startBuilding)
             {
-                transform.position += Vector3.right * Time.deltaTime * speed;
-                isMoving = true;
+                if (!_isTurn)
+                {
+                    _rb.velocity = Vector3.right * speed * Time.deltaTime;
+                    isMoving = true;
+                }
             }
         }
     }
@@ -265,6 +306,7 @@ public class Player : MonoBehaviour
         {
             rotationPowerTime = 0f;
             isJump = false;
+            canJump = false;
             if (transform.eulerAngles.z > 45 && transform.eulerAngles.z < 315)
             {
                isDead = true;
@@ -294,12 +336,26 @@ public class Player : MonoBehaviour
                 CameraShake.Instance.isAnimationPlaying = true;
             }
         }
+
+        if (other.gameObject.tag == "Jump")
+        {
+            canJump = true;
+        }
         
         if (other.gameObject.tag == "Death")
         {
             isDead = true;
         }
         
+        if (other.gameObject.tag == "ObstacleBig")
+        {
+            isBigObstacle = true;
+        }
+        
+        if (other.gameObject.tag == "ObstacleSmall")
+        {
+            isSmallObstacle = true;
+        }
         
     }
    
@@ -334,5 +390,15 @@ public class Player : MonoBehaviour
             isMoving = false;
             isFlying = true;
         } 
+        
+        if (other.gameObject.tag == "ObstacleBig")
+        {
+            isBigObstacle = false;
+        }
+        
+        if (other.gameObject.tag == "ObstacleSmall")
+        {
+            isSmallObstacle = false;
+        }
     }
 }

@@ -3,7 +3,17 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - GameManager
+  - Combo
+  - Ground
+  - Death
+  - EndGame
+  - Jump
+  - Coin
+  - PerfectJump
+  - ObstacleBig
+  - ObstacleSmall
   layers:
   - Default
   - TransparentFX
