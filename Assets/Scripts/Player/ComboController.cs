@@ -68,8 +68,7 @@ public class ComboController : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         _afterRot = Player.Instance.transform.eulerAngles.z;
         result =  _currentRot - _afterRot;
-        Debug.Log("Result: " + result);
-        if (result <= 0 )
+        if (result <= 30 )
         {
             canFlip = false;
         }

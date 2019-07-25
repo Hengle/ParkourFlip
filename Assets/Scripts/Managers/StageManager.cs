@@ -22,7 +22,7 @@ public class StageManager : MonoSingleton<StageManager>
         BuildBuildings();
     }
 
-    private void ControlLevel()
+    private void ControlLevel() 
     {
         if (PlayerPrefs.GetInt("Level") == 0)
         {
@@ -32,7 +32,7 @@ public class StageManager : MonoSingleton<StageManager>
         CurrentLevel = PlayerPrefs.GetInt("Level");
     }
 
-    public void LevelUp()
+    public void LevelUp() // Bir sonraki stage;
     {
         buildingPool.closeObject(CurrentLevel);
         CurrentLevel = PlayerPrefs.GetInt("Level");

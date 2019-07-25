@@ -41,6 +41,7 @@ public class Player : MonoBehaviour
     private bool isStop = true;
     public bool isDead;
     private bool canJump;
+    private bool gameStart = true;
 
     //ForAnimation
     public Animator _Anim;
@@ -55,7 +56,10 @@ public class Player : MonoBehaviour
     private GameObject jumpingEffects;
     private GameObject landingEffects;
     private GameObject star;
-   
+    
+    //Restart
+    public bool gameEndAnim;
+    private Vector3 startPos;
     
     Vector3 CalculateLauncVelocity()
     {
@@ -71,7 +75,7 @@ public class Player : MonoBehaviour
     
     private void Start()
     {
-        _rb.useGravity = false;
+        startPos = transform.position;
     }
 
     private void FixedUpdate()
@@ -90,6 +94,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         Animation();
+        
         if (!startBuilding)
         {
             isMoving = false;
@@ -100,9 +105,20 @@ public class Player : MonoBehaviour
             FlipControl();
             SmoothFlip();
         }
-       
     }
-
+    
+    public void PlayerReset()
+    {
+        UIManager.Instance.ShowGameStartPanel();
+        transform.position = startPos;
+        transform.eulerAngles = new Vector3(0,0,0);
+        gameObject.SetActive(true);
+        isWin = false;
+        isDead = false;
+        gameStart = true;
+        gameEndAnim = false;
+        startBuilding = false;
+    }
     private void Animation()
     {
         _Anim.SetFloat("Speed" , rotationPowerTime);
@@ -154,6 +170,16 @@ public class Player : MonoBehaviour
             _Anim.SetBool("isSmallObstacle", false);
         }
 
+        if (gameEndAnim)
+        {
+            _Anim.SetBool("GameEnd" , true);
+        }
+        else
+        {
+            _Anim.SetBool("GameEnd" , false);
+        }
+        
+        
         if (isWin)
         {
             _Anim.SetBool("IsWin", true);
@@ -177,11 +203,21 @@ public class Player : MonoBehaviour
             } 
         }    
     }
+
+    private void GameStart()
+    {
+        if (gameStart)
+        {
+            GameManager.Instance.StartGame();
+            gameStart = false;
+        }
+    }
     private void FlipControl()
     {
         if (Input.GetMouseButtonDown(0) )
-         {
-             GameManager.Instance.StartGame();
+        {
+             GameStart();
+             
              if (canJump)
              {
                  _isTurn = true;

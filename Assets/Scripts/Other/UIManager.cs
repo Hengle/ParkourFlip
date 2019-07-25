@@ -18,17 +18,12 @@ public class UIManager : MonoBehaviour
 
     #endregion
     
-    [Header("Revive Panel")]
-    public GameObject revivePanel;
+   
     [Header("GameOver Panel")]
     public GameObject gameOverPanel;
-    
-    [Header("LevelEnd Panel")]
-    public GameObject levelEndPanel;
-
+   
     [Header("GameStart Panel")]
     public GameObject gameStartPanel;
-    
     
     
     [Header("LevelComplete")]
@@ -53,9 +48,6 @@ public class UIManager : MonoBehaviour
     [Header("Win Text ")]
     public GameObject winText;
     
-    [Header("Lose Text ")]
-    public GameObject loseText;
-
 
     private void Update()
     {
@@ -67,72 +59,25 @@ public class UIManager : MonoBehaviour
         levelCompletePanel.SetActive(true);
     }
 
-    public void ShowRevivePanel()
-    {
-        revivePanel.SetActive(true);
-        {
-            HideRevivePanel();
-            ShowGameOverPanel();
-        }
-    }
-
-    public void HideRevivePanel()
-    {
-        revivePanel.SetActive(false);
-    }
-
     public void ShowGameOverPanel()
     {
         gameOverPanel.SetActive(true);
     }
-    
+   
+    public void HideGameOverPanel()
+    {
+        gameOverPanel.SetActive(false);
+    }
     public void HideGameStartPanel()
     {
         gameStartPanel.SetActive(false);
     }
-
-    public void SkipButton()
-    {
-        
-        HideRevivePanel();
-        ShowGameOverPanel();
-    }
     
-    public void HomeButton()
+    public void ShowGameStartPanel()
     {
-        SceneManager.LoadScene(0);
+        gameStartPanel.SetActive(true);
     }
 
-    public void ShowNextLevelPanel()
-    {
-        levelEndPanel.SetActive(true);
-    }
-
-    public void ReviveButton()
-    {
-        //TODO:ShowAdd
-        HideRevivePanel();
-    }
-
-    public void ReplayButton()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-
-    public void PlayButton()
-    {
-        SceneManager.LoadScene(1);
-    }
-    public void ShowLoseText()
-    {
-        loseText.SetActive(true);
-    }
-    
-    public void HideLoseText()
-    {
-        loseText.SetActive(false);
-    }
-    
     public void ShowWinText()
     {
         winText.SetActive(true);

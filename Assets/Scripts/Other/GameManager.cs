@@ -30,15 +30,14 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
-    public List<BuildingScript> BuildingsList = new List<BuildingScript>();
+    //public List<BuildingScript> BuildingsList = new List<BuildingScript>();
     public int combo;
     public Transform _nextTarget;
     public float gravity;
     public float height;
     public bool gameEnd;
     public int coinCount;
-  
-    
+
    /* public enum STATE
     {
         Play,
@@ -64,39 +63,40 @@ public class GameManager : MonoBehaviour
         
     }*/
 
-   private void Start()
-   {
-       _nextTarget = BuildingsList[0].target;
-   }
 
-   private void Update()
+   private bool deadAnim;
+    private void Update()
     {
-        
+
         if (!gameEnd)
         {
             BuidingsControl();
         }
         else
         {
-            StartCoroutine("NextLevel");
+            NextLevel();
         }
 
+        
         if (Player.Instance.isDead)
         {
             PlayerDead();
         }
-        
     }
 
     private void BuidingsControl()
     {
-        for (int i = 0; i < BuildingsList.Count; i++)
+        for (int i = 0; i < BuildManager.Instance.buildingScripts.Count; i++)
         {
-            if (BuildingsList[i].isPlayerOn)
+            if (BuildManager.Instance.buildingScripts[i].isPlayerOn)
             {
                 if (!Player.Instance.isDead)
                 {
-                    _nextTarget = BuildingsList[i+1].target;
+                    _nextTarget = BuildManager.Instance.buildingScripts[i+1].target;
+                }
+                else 
+                {
+                    BuildManager.Instance.buildingScripts[i].isPlayerOn = false;
                 }
             }
         }
@@ -107,63 +107,57 @@ public class GameManager : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             UIManager.Instance.HideGameStartPanel();
+            BuildManager.Instance.ControlBuildings();
+            _nextTarget = BuildManager.Instance.buildingScripts[0].target;
         }
     }
-    private void RestartGame()
+
+    private void NextLevel()
     {
+        Debug.Log("NextLevel");
+        Player.Instance._Anim.SetBool("IsMoving" , false);
+        UIManager.Instance.ShowLevelCompletePanel();
+        UIManager.Instance.ShowWinText();
+        
         if (Input.GetMouseButtonDown(0))
         {
-            Scene scene = SceneManager.GetActiveScene();
-            SceneManager.LoadScene(scene.buildIndex);
+            Player.Instance.PlayerReset();
+            StageManager.Instance.LevelUp();
+            BuildManager.Instance.ControlBuildings();
+            gameEnd = false;
+            UIManager.Instance.HideGameOverPanel();
+            
         }
     }
     public void PlayerDead()
     {
-        StartCoroutine(DeadAnim());
-    }
-
-    public IEnumerator NextLevel()
-    {
-        Player.Instance._Anim.SetBool("IsMoving" , false);
-        UIManager.Instance.ShowLevelCompletePanel();
-        UIManager.Instance.ShowWinText();
-        yield return new WaitForSeconds(1f);
-        if (Input.GetMouseButtonDown(0))
+        if (!deadAnim)
         {
-            UIManager.Instance.HideWinText();
-            Scene scene = SceneManager.GetActiveScene();
-            if (scene.buildIndex == 5)
-            {
-                SceneManager.LoadScene(scene.buildIndex - 4);
-            }
-            else
-            {
-                SceneManager.LoadScene(scene.buildIndex + 1);
-            }
+            StartCoroutine(DeadAnim());
+        }
+        else
+        {
+            RestartSameLevel();
         }
     }
-    
-    public IEnumerator SameLevel()
+    private void RestartSameLevel()
     {
-        UIManager.Instance.ShowLoseText();
-        yield return new WaitForSeconds(1f);
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonUp(0))
         {
-            UIManager.Instance.HideLoseText();
-            Scene scene = SceneManager.GetActiveScene();
-            SceneManager.LoadScene(scene.buildIndex );
+            deadAnim = false;
+            UIManager.Instance.HideGameOverPanel();
+            Player.Instance.PlayerReset();
         }
     }
     public IEnumerator DeadAnim()
-    {
+    {   
         StartCoroutine(ParticleManager.Instance.DeathEffects());
         Player.Instance._rb.useGravity = true;
-        Player.Instance._collider.enabled = !Player.Instance._collider.enabled;
-        Player.Instance._rb.constraints = RigidbodyConstraints.None;
-        yield return new WaitForSeconds(1f);
-        Player.Instance.gameObject.SetActive(false);
+        yield return new WaitForSeconds(.5f);
         UIManager.Instance.ShowGameOverPanel();
-        RestartGame();
+        Player.Instance._rb.useGravity = false;
+        Player.Instance.gameObject.SetActive(false);
+        deadAnim = true;
     }
 
 
