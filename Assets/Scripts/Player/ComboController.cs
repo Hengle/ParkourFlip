@@ -4,13 +4,40 @@ using UnityEngine;
 
 public class ComboController : MonoBehaviour
 {
+    
+    #region Singleton
+
+    public static ComboController Instance;
+
+    private void Awake()
+    {
+        Application.targetFrameRate = 60;
+        
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    #endregion
+    
     private readonly  Vector3 _distance = new Vector3(0,1.7f,0);
-    public Rigidbody rb;
+    private Rigidbody _rb;
+    public bool canFlip = true;
+
+    private float _currentRot;
+    private float _afterRot;
+
+    private float result;
     // Update is called once per frame
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        _rb = GetComponent<Rigidbody>();
     }
 
     void Update()
@@ -21,17 +48,34 @@ public class ComboController : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "Combo")
+        if (other.gameObject.tag == "Combo" && canFlip)
         {
             if (!Player.Instance.isDead)
             {
-                StartCoroutine(UIManager.Instance.ShowComboText());    
-                GameManager.Instance.combo += 1;
-                Taptic.Medium();
-                Debug.Log("Combo");
+                StartCoroutine(UIManager.Instance.ShowComboText());
+                StartCoroutine(Flip());
             }
         }
     }
-    
-    
+
+
+    private IEnumerator Flip()
+    {
+        _currentRot = Player.Instance.transform.eulerAngles.z;
+        canFlip = false;
+        GameManager.Instance.combo += 1;
+        Taptic.Medium();
+        yield return new WaitForSeconds(0.1f);
+        _afterRot = Player.Instance.transform.eulerAngles.z;
+        result =  _currentRot - _afterRot;
+        Debug.Log("Result: " + result);
+        if (result <= 0 )
+        {
+            canFlip = false;
+        }
+        else
+        {
+            canFlip = true;
+        }
+    }
 }

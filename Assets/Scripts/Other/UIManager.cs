@@ -17,6 +17,7 @@ public class UIManager : MonoBehaviour
     }
 
     #endregion
+    
     [Header("Revive Panel")]
     public GameObject revivePanel;
     [Header("GameOver Panel")]
@@ -28,7 +29,7 @@ public class UIManager : MonoBehaviour
     [Header("GameStart Panel")]
     public GameObject gameStartPanel;
     
-   
+    
     
     [Header("LevelComplete")]
     public GameObject levelCompletePanel;
@@ -45,6 +46,9 @@ public class UIManager : MonoBehaviour
     [Header("Combo Text ")]
     public GameObject comboText;
     public TextMeshProUGUI flip;
+    
+    [Header("Coin Text ")]
+    public TextMeshProUGUI coinText;
 
     [Header("Win Text ")]
     public GameObject winText;
@@ -52,6 +56,11 @@ public class UIManager : MonoBehaviour
     [Header("Lose Text ")]
     public GameObject loseText;
 
+
+    private void Update()
+    {
+        ShowCoinText();
+    }
 
     public void ShowLevelCompletePanel()
     {
@@ -131,6 +140,11 @@ public class UIManager : MonoBehaviour
     public void HideWinText()
     {
         winText.SetActive(false);
+    }
+
+    public void ShowCoinText()
+    {
+        coinText.text = "Coin: " + GameManager.Instance.GetCoinCount().ToString();
     }
     public IEnumerator ShowComboText()
     {

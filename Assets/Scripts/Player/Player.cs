@@ -33,7 +33,6 @@ public class Player : MonoBehaviour
     private float frictionEffect;
     private float desiredPosX;
     private readonly  Vector3 _eulerAngleVelocity = new Vector3(0,0,460);
-    public GameObject CamTarget;
     
     //Booleans
     private bool startBuilding; //Its for starting to game.
@@ -304,9 +303,11 @@ public class Player : MonoBehaviour
     {
         if (other.gameObject.tag == "Ground" && startBuilding && !isDead)
         {
+            ComboController.Instance.canFlip = true;
             rotationPowerTime = 0f;
             isJump = false;
             canJump = false;
+            Taptic.Heavy();
             if (transform.eulerAngles.z > 45 && transform.eulerAngles.z < 315)
             {
                isDead = true;

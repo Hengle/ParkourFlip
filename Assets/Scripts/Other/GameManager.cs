@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
     public float height;
     public bool gameEnd;
     public int coinCount;
-
+  
     
    /* public enum STATE
     {
@@ -63,8 +63,13 @@ public class GameManager : MonoBehaviour
         }
         
     }*/
-    
-    private void Update()
+
+   private void Start()
+   {
+       _nextTarget = BuildingsList[0].target;
+   }
+
+   private void Update()
     {
         
         if (!gameEnd)
@@ -151,7 +156,6 @@ public class GameManager : MonoBehaviour
     }
     public IEnumerator DeadAnim()
     {
-        Player.Instance.CamTarget.transform.position = Player.Instance.transform.position;
         StartCoroutine(ParticleManager.Instance.DeathEffects());
         Player.Instance._rb.useGravity = true;
         Player.Instance._collider.enabled = !Player.Instance._collider.enabled;
@@ -162,6 +166,11 @@ public class GameManager : MonoBehaviour
         RestartGame();
     }
 
+
+    public int GetCoinCount()
+    {
+        return coinCount;
+    }
     public int GetFlipComboCount()
     {
         return combo + 1;
