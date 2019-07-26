@@ -12,11 +12,8 @@ public class Coin : MonoBehaviour
     private void Start()
     {
         speed = Random.Range(100, 250);
-        gameObject.SetActive(true);
         _renderer = GetComponent<MeshRenderer>();
-        _renderer.enabled = true;
     }
-
     void Update()
     {
         transform.Rotate(0,speed * Time.deltaTime,0,Space.World);
@@ -27,12 +24,20 @@ public class Coin : MonoBehaviour
         if (other.gameObject.tag == "Player" && canTake)
         {
             canTake = false;
-            GameManager.Instance.coinCount += 5;
+            GameManager.Instance.coinCount += 1;
+            CollectionManager.Instance.collectCoin();
             _renderer.enabled = false;
             StartCoroutine("Effect");
+            
         }
     }
 
+    private IEnumerator Reset()
+    {
+        yield return new WaitForSeconds(3f);
+        canTake = true;
+        _renderer.enabled = true;
+    }
     private IEnumerator Effect()
     {
         _particleEffect = ObjectPooler.SharedInstance.GetPooledObject(5);
@@ -40,6 +45,6 @@ public class Coin : MonoBehaviour
         _particleEffect.SetActive(true);
         yield return new WaitForSeconds(.5f);
         _particleEffect.SetActive(false);
-        gameObject.SetActive(false);
+        StartCoroutine(Reset());
     }
 }

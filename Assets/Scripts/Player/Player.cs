@@ -27,7 +27,9 @@ public class Player : MonoBehaviour
 
     #endregion
 
-    public Camera _cam;
+    public CinemachineVirtualCamera VirtualCamera;
+    public GameObject rotationPos;
+    private Vector3 cameraPos = new Vector3(-11.89f,3.030001f,-5.59f);
     public Rigidbody _rb;
     public Collider _collider;
     public float speed;
@@ -61,7 +63,6 @@ public class Player : MonoBehaviour
     private GameObject star;
     
     //Restart
-    public bool gameEndAnim;
     private Vector3 startPos;
     
     Vector3 CalculateLauncVelocity()
@@ -98,8 +99,8 @@ public class Player : MonoBehaviour
     void Update()
     {
         Animation();
-        
-        Debug.Log("GameEndAnim: "+ gameEndAnim);
+        Debug.Log(rotationPos.transform.eulerAngles.z + "RotPosGameObj");
+       
         if (!startBuilding)
         {
             isMoving = false;
@@ -114,14 +115,15 @@ public class Player : MonoBehaviour
     
     public void PlayerReset()
     {
+        gameObject.SetActive(true);
         UIManager.Instance.ShowGameStartPanel();
+        VirtualCamera.transform.position = cameraPos;
         transform.position = startPos;
         transform.eulerAngles = new Vector3(0,0,0);
-        gameObject.SetActive(true);
+        canJump = false;
         isWin = false;
         isDead = false;
         gameStart = true;
-        gameEndAnim = true;
         startBuilding = false;
     }
     private void Animation()
@@ -174,20 +176,14 @@ public class Player : MonoBehaviour
         {
             _Anim.SetBool("isSmallObstacle", false);
         }
-
-        if (gameEndAnim)
-        {
-            _Anim.SetBool("GameEnd" , true);
-        }
-        else
-        {
-            _Anim.SetBool("GameEnd" , false);
-        }
-        
         
         if (isWin)
         {
             _Anim.SetBool("IsWin", true);
+        }
+        else
+        {
+            _Anim.SetBool("IsWin", false);
         }
         
     }
@@ -219,36 +215,43 @@ public class Player : MonoBehaviour
     }
     private void FlipControl()
     {
-        if (Input.GetMouseButtonDown(0) )
+        if (Input.GetMouseButtonDown(0))
         {
-             GameStart();
+            if (!isDead && !isWin)
+            {
+                GameStart();
              
-             if (canJump)
-             {
-                 _isTurn = true;
-             }
-             isStop = false;
-             if (isMoving)
-             {
-                 rotationPowerTime = .5f;
-             }
+                if (canJump)
+                {
+                    _isTurn = true;
+                }
+                isStop = false;
+                if (isMoving)
+                {
+                    rotationPowerTime = .5f;
+                }
               
-             if (startBuilding)
-             {
-                 isJump = true;
-                 if (canJump)
-                 {
-                     Lauch();
-                 }
-             }
-             startBuilding = true; 
-             
+                if (startBuilding)
+                {
+                    isJump = true;
+                    if (canJump)
+                    {
+                        Lauch();
+                    }
+                }
+                startBuilding = true; 
+            }
+            
          }
         
         if (Input.GetMouseButtonUp(0))
          {
-              _isTurn = false;
-              isStop = true;
+             if (!isDead && !isWin)
+             {
+                 _isTurn = false;
+                 isStop = true;
+             }
+              
          }
       
     }
@@ -368,6 +371,7 @@ public class Player : MonoBehaviour
             else if ((transform.eulerAngles.z < 15 || transform.eulerAngles.z > 345) && GameManager.Instance.combo != 0)
             {
                 GameManager.Instance.combo = GameManager.Instance.combo + 1;
+                CollectionManager.Instance.perfect();
                 StartCoroutine(UIManager.Instance.ShowPerfectText());
                 StartCoroutine(ParticleManager.Instance.StarEffects(star));
             }

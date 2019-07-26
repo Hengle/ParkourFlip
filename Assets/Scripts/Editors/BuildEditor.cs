@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEditor;
-
+#if UNITY_EDITOR
 [CustomEditor(typeof(BuildManager))]
 public class BuildEditor : Editor
 {
@@ -19,3 +19,4 @@ public class BuildEditor : Editor
 
     }
 }
+#endif

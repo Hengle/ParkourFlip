@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEditor;
-
+#if UNITY_EDITOR
 [CustomEditor(typeof(StageManager))]
 public class StageEditor : Editor
 {
@@ -22,3 +22,4 @@ public class StageEditor : Editor
         }
     }
 }
+#endif

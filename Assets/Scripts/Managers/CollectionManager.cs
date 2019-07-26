@@ -10,9 +10,12 @@ public class CollectionManager : MonoSingleton<CollectionManager>
     [SerializeField] int flipCount = 0;
     [SerializeField] int perfectCount = 0;
     [SerializeField] int allCoins = 0;
+    [SerializeField] int score = 0;
 
     #endregion
     #region Functions
+
+
     void Awake()
     {
         allCoins = PlayerPrefs.GetInt("Coins");
@@ -38,7 +41,6 @@ public class CollectionManager : MonoSingleton<CollectionManager>
         allCoins += collectedCoins;
         collectedCoins=0;
         PlayerPrefs.SetInt("Coins", allCoins);
-
     }
 
     public void resetCollectedCoins()
@@ -59,9 +61,18 @@ public class CollectionManager : MonoSingleton<CollectionManager>
     public void resetAllCoins()
     {
         PlayerPrefs.SetInt("Coins", 0);
-        allCoins= PlayerPrefs.GetInt("Level");
+        allCoins= PlayerPrefs.GetInt("Coins");
     }
 
+    public void scoreFind()
+    {
+        score = collectedCoins + flipCount + perfectCount;
+    }
+
+    public int getScore()
+    {
+        return score;
+    }
     public int getCollectedCoins()
     {
         return collectedCoins;

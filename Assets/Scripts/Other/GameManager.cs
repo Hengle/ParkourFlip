@@ -64,10 +64,9 @@ public class GameManager : MonoBehaviour
     }*/
 
 
-   private bool deadAnim;
+   private bool _deadAnim;
     private void Update()
     {
-
         if (!gameEnd)
         {
             BuidingsControl();
@@ -114,58 +113,69 @@ public class GameManager : MonoBehaviour
 
     private void NextLevel()
     {
-        Debug.Log("NextLevel");
-        Player.Instance._Anim.SetBool("IsMoving" , false);
         UIManager.Instance.ShowLevelCompletePanel();
         UIManager.Instance.ShowWinText();
-        Debug.Log("NextLevel2");
         
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("ButtonNextLevel");
-
+            ResetsCollection();
+            CollectionManager.Instance.levelOver();
             StageManager.Instance.LevelUp();
-            BuildManager.Instance.ControlBuildings();
             Player.Instance.PlayerReset();
-            UIManager.Instance.HideGameOverPanel();
+            UIManager.Instance.HideLevelCompletePanel();
             gameEnd = false;
         }
     }
     public void PlayerDead()
     {
-        if (!deadAnim)
+        if (!_deadAnim)
         {
             StartCoroutine(DeadAnim());
         }
-        else
+        else 
         {
             RestartSameLevel();
         }
     }
-    private void RestartSameLevel()
+    public void RestartSameLevel()
     {
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonDown(0) && UIManager.Instance.canClick)
         {
-            deadAnim = false;
+            _deadAnim = false;
+            UIManager.Instance.canClick = false;
             UIManager.Instance.HideGameOverPanel();
             Player.Instance.PlayerReset();
         }
     }
+
+    private void ResetsCollection()
+    {
+        CollectionManager.Instance.resetFlip();
+        CollectionManager.Instance.resetPerfect();
+        CollectionManager.Instance.resetCollectedCoins();
+    }
     public IEnumerator DeadAnim()
-    {   
+    {
+        ResetsCollection();
+        GetCoinCountZero();
+        UIManager.Instance.HideGameStartPanel();
         StartCoroutine(ParticleManager.Instance.DeathEffects());
         Player.Instance._rb.useGravity = true;
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(1f);
         UIManager.Instance.ShowGameOverPanel();
+        StartCoroutine(UIManager.Instance.ShowRestartButton());
         Player.Instance._rb.useGravity = false;
         Player.Instance.gameObject.SetActive(false);
-        deadAnim = true;
+        _deadAnim = true;
     }
-
-
     public int GetCoinCount()
     {
         return coinCount;
+    }
+
+    public int GetCoinCountZero()
+    {
+        return coinCount = 0;
     }
     public int GetFlipComboCount()
     {

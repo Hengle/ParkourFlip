@@ -362,8 +362,8 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: GameEnd
+  - m_ConditionMode: 2
+    m_ConditionEvent: IsWin
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 8513387725862450602}
@@ -509,12 +509,6 @@ AnimatorController:
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
   - m_Name: isSmallObstacle
-    m_Type: 4
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 0}
-  - m_Name: GameEnd
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -725,8 +719,7 @@ BlendTree:
   m_Name: Blend Tree
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: -203655887218126122, guid: 5a59342ab9d02484084e97eb1fad4756,
-      type: 3}
+    m_Motion: {fileID: 7400000, guid: 0286e65f77c6d364980a6c938f8a005e, type: 2}
     m_Threshold: 1
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -857,7 +850,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Run
-  m_Speed: 1.3
+  m_Speed: 1.1
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 191564694475902072}
@@ -873,8 +866,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -203655887218126122, guid: 4cccf5d8da83c284291801889ee1130d,
-    type: 3}
+  m_Motion: {fileID: 7400000, guid: 271412aa6152edf49aa58447ae298935, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

@@ -7,7 +7,7 @@ public class WindowEditor : MonoBehaviour
 {
 #if UNITY_EDITOR
 
-    [MenuItem("Parkour Flip/Clear All Prefabs")]
+    [MenuItem("Parkour Flip/Clear All PlayerPrefs")]
     public static void ClearAllPrefabs()
     {
         PlayerPrefs.DeleteAll();

@@ -48,15 +48,64 @@ public class UIManager : MonoBehaviour
     [Header("Win Text ")]
     public GameObject winText;
     
+    [Header("Restart Button ")]
+    public GameObject restartButton;
+
+    
+    
+    [Header("LevelCompletePanel ")]
+    [Header("Level Text ")]
+    public TextMeshProUGUI levelText;
+    
+    [Header("Flip Text ")]
+    public TextMeshProUGUI flipText;
+    
+    [Header("PerfectLevelEnd Text ")]
+    public TextMeshProUGUI perfectTextCounter;
+    
+    [Header("Coin Text ")]
+    public TextMeshProUGUI coinTextCounter;
+    
+    [Header("Score Text ")]
+    public TextMeshProUGUI scoreText;
+
+    public bool canClick;
+
+    private void Start()
+    {
+    }
 
     private void Update()
     {
-        ShowCoinText();
+        CollectionUpdate();
+            
+        if (!canClick)
+        {
+            ShowCoinText();
+        }
+        else
+        {
+            ShowCoinTextZero();
+        }
     }
 
+
+    public void CollectionUpdate()
+    {
+        flipText.text = CollectionManager.Instance.getFlipCount().ToString();
+        perfectTextCounter.text = CollectionManager.Instance.getPerfectCount().ToString();
+        coinTextCounter.text = CollectionManager.Instance.getCollectedCoins().ToString();
+        scoreText.text = CollectionManager.Instance.getScore().ToString();
+        levelText.text = StageManager.Instance.getCurrentLevel().ToString();
+    }
     public void ShowLevelCompletePanel()
     {
         levelCompletePanel.SetActive(true);
+    }
+    
+    public void HideLevelCompletePanel()
+    {
+        levelCompletePanel.SetActive(false);
     }
 
     public void ShowGameOverPanel()
@@ -89,7 +138,21 @@ public class UIManager : MonoBehaviour
 
     public void ShowCoinText()
     {
-        coinText.text = "Coin: " + GameManager.Instance.GetCoinCount().ToString();
+        coinText.text = GameManager.Instance.GetCoinCount().ToString();
+    }
+    
+    public void ShowCoinTextZero()
+    {
+        coinText.text = GameManager.Instance.GetCoinCountZero().ToString();
+    }
+
+    public IEnumerator ShowRestartButton()
+    {
+        canClick = false;
+        restartButton.SetActive(false);
+        yield return new WaitForSeconds(1.5f);
+        restartButton.SetActive(true);
+        canClick = true;
     }
     public IEnumerator ShowComboText()
     {
@@ -99,7 +162,6 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSeconds(.5f);
         comboText.SetActive(false);
     }
-    
     public IEnumerator ShowPerfectText()
     {
         perfectText.gameObject.SetActive(true);

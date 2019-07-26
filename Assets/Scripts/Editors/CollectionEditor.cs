@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEditor;
-
+#if UNITY_EDITOR
 [CustomEditor(typeof(CollectionManager))]
 public class CollectionEditor : Editor
 {
@@ -52,3 +52,4 @@ public class CollectionEditor : Editor
         }
     }
 }
+#endif

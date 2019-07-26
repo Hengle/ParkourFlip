@@ -64,6 +64,11 @@ public class StageManager : MonoSingleton<StageManager>
         buildingPool.SpawnFromPool(CurrentLevel);
     }
 
+    public int getCurrentLevel()
+    {
+        return CurrentLevel;
+    }
+
     #endregion
 
 

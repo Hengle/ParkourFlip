@@ -10,6 +10,7 @@ public class GameEnd : MonoBehaviour
         {
             if (!Player.Instance.isDead)
             {
+                CollectionManager.Instance.scoreFind();
                 GameManager.Instance.gameEnd = true;
                 Player.Instance.isWin = true;
                 StartCoroutine(ParticleManager.Instance.GameEndEffects());

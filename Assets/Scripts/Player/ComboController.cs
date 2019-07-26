@@ -61,6 +61,7 @@ public class ComboController : MonoBehaviour
 
     private IEnumerator Flip()
     {
+        CollectionManager.Instance.flip();
         _currentRot = Player.Instance.transform.eulerAngles.z;
         canFlip = false;
         GameManager.Instance.combo += 1;
