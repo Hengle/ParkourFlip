@@ -118,15 +118,17 @@ public class GameManager : MonoBehaviour
         Player.Instance._Anim.SetBool("IsMoving" , false);
         UIManager.Instance.ShowLevelCompletePanel();
         UIManager.Instance.ShowWinText();
+        Debug.Log("NextLevel2");
         
         if (Input.GetMouseButtonDown(0))
         {
-            Player.Instance.PlayerReset();
+            Debug.Log("ButtonNextLevel");
+
             StageManager.Instance.LevelUp();
             BuildManager.Instance.ControlBuildings();
-            gameEnd = false;
+            Player.Instance.PlayerReset();
             UIManager.Instance.HideGameOverPanel();
-            
+            gameEnd = false;
         }
     }
     public void PlayerDead()

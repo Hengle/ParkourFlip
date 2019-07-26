@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -26,6 +27,7 @@ public class Player : MonoBehaviour
 
     #endregion
 
+    public Camera _cam;
     public Rigidbody _rb;
     public Collider _collider;
     public float speed;
@@ -33,6 +35,7 @@ public class Player : MonoBehaviour
     private float frictionEffect;
     private float desiredPosX;
     private readonly  Vector3 _eulerAngleVelocity = new Vector3(0,0,460);
+    
     
     //Booleans
     private bool startBuilding; //Its for starting to game.
@@ -76,6 +79,7 @@ public class Player : MonoBehaviour
     private void Start()
     {
         startPos = transform.position;
+        //_cam.transform.position = 
     }
 
     private void FixedUpdate()
@@ -95,6 +99,7 @@ public class Player : MonoBehaviour
     {
         Animation();
         
+        Debug.Log("GameEndAnim: "+ gameEndAnim);
         if (!startBuilding)
         {
             isMoving = false;
@@ -116,7 +121,7 @@ public class Player : MonoBehaviour
         isWin = false;
         isDead = false;
         gameStart = true;
-        gameEndAnim = false;
+        gameEndAnim = true;
         startBuilding = false;
     }
     private void Animation()
