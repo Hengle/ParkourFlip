@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
     public float height;
     public bool gameEnd;
     public int coinCount;
+    private int _resetCount;
 
    /* public enum STATE
     {
@@ -106,7 +107,6 @@ public class GameManager : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             UIManager.Instance.HideGameStartPanel();
-            BuildManager.Instance.ControlBuildings();
             _nextTarget = BuildManager.Instance.buildingScripts[0].target;
         }
     }

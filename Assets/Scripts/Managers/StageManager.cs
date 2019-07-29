@@ -12,14 +12,25 @@ public class StageManager : MonoSingleton<StageManager>
 
     BuildingPool buildingPool;
 
+    private BuildingPoolManager buildingPoolManager;
+
+    private BuildManager buildManager;
+
+    private LevelGenerator levelGenerator;
     #endregion
     #region  Functions
     public void Awake()
     {
-        buildingPool = BuildingPool.Instance;
+        levelGenerator = LevelGenerator.Instance;
+        buildManager = BuildManager.Instance;
+        buildingPoolManager = BuildingPoolManager.Instance;
+    }
 
+    private void Start()
+    {
+        //levelGenerator.createLevel(5,"Istanbul");
+        //buildManager.ControlBuildings();
         ControlLevel();
-        BuildBuildings();
     }
 
     private void ControlLevel() 
@@ -34,20 +45,14 @@ public class StageManager : MonoSingleton<StageManager>
 
     public void LevelUp() // Bir sonraki stage;
     {
-        buildingPool.closeObject(CurrentLevel);
+        buildingPoolManager.closeObjects();
+        levelGenerator.createLevel(5+CurrentLevel,"Istanbul");
         CurrentLevel = PlayerPrefs.GetInt("Level");
 
         PlayerPrefs.SetInt("Level", ++CurrentLevel);
 
         CurrentLevel = PlayerPrefs.GetInt("Level");
 
-        if (CurrentLevel >= buildingPool.getLevelCount())
-        {
-            CurrentLevel=1;
-            PlayerPrefs.SetInt("Level", CurrentLevel);
-        }
-
-        BuildBuildings();
     }
 
     public void ResetLevel()//Reset all the game

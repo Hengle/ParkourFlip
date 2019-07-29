@@ -238,9 +238,12 @@
             <e p="WindowEditor.cs" t="Include" />
           </e>
           <e p="Managers" t="Include">
+            <e p="BackgroundBuildsPool.cs" t="Include" />
             <e p="BuildingPool.cs" t="Include" />
+            <e p="BuildingPoolManager.cs" t="Include" />
             <e p="BuildManager.cs" t="Include" />
             <e p="CollectionManager.cs" t="Include" />
+            <e p="LevelGenerator.cs" t="Include" />
             <e p="MonoSingleton.cs" t="Include" />
             <e p="StageManager.cs" t="Include" />
           </e>

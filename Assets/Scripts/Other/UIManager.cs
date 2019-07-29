@@ -18,7 +18,9 @@ public class UIManager : MonoBehaviour
 
     #endregion
     
-   
+    [Header("Loading Panel")]
+    public GameObject loadPanel;
+    
     [Header("GameOver Panel")]
     public GameObject gameOverPanel;
    

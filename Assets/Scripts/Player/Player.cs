@@ -28,7 +28,6 @@ public class Player : MonoBehaviour
     #endregion
 
     public CinemachineVirtualCamera VirtualCamera;
-    public GameObject rotationPos;
     private Vector3 cameraPos = new Vector3(-11.89f,3.030001f,-5.59f);
     public Rigidbody _rb;
     public Collider _collider;
@@ -63,7 +62,7 @@ public class Player : MonoBehaviour
     private GameObject star;
     
     //Restart
-    private Vector3 startPos;
+    private Vector3 startPos  = new Vector3(-41.59f,13.86f,0f);
     
     Vector3 CalculateLauncVelocity()
     {
@@ -79,7 +78,6 @@ public class Player : MonoBehaviour
     
     private void Start()
     {
-        startPos = transform.position;
         //_cam.transform.position = 
     }
 
@@ -99,7 +97,6 @@ public class Player : MonoBehaviour
     void Update()
     {
         Animation();
-        Debug.Log(rotationPos.transform.eulerAngles.z + "RotPosGameObj");
        
         if (!startBuilding)
         {
@@ -228,7 +225,7 @@ public class Player : MonoBehaviour
                 isStop = false;
                 if (isMoving)
                 {
-                    rotationPowerTime = .5f;
+                    rotationPowerTime = .8f;
                 }
               
                 if (startBuilding)
