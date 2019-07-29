@@ -41,7 +41,7 @@ public class BuildingPoolManager : MonoSingleton<BuildingPoolManager>
                     objectPool.Enqueue(obj);
                 }
                 string key = pool.city + j;
-                Debug.Log(key);
+//                Debug.Log(key);
                 poolDictionary.Add(key, objectPool);
             }
 

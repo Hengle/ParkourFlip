@@ -242,6 +242,7 @@
             <e p="BuildingPool.cs" t="Include" />
             <e p="BuildingPoolManager.cs" t="Include" />
             <e p="BuildManager.cs" t="Include" />
+            <e p="CoinSpawnManager.cs" t="Include" />
             <e p="CollectionManager.cs" t="Include" />
             <e p="LevelGenerator.cs" t="Include" />
             <e p="MonoSingleton.cs" t="Include" />

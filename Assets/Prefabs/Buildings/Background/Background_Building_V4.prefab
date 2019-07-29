@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3187484733676351601}
   m_Layer: 0
   m_Name: Background_Building_V4
-  m_TagString: Background
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -744,6 +744,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3187484733676351601}
     m_Modifications:
+    - target: {fileID: 122982, guid: 7518e6d86c572544cb2f51453141465f, type: 3}
+      propertyPath: m_Name
+      value: SM_Prop_SatDish_08
+      objectReference: {fileID: 0}
     - target: {fileID: 453012, guid: 7518e6d86c572544cb2f51453141465f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.10998535
@@ -783,10 +787,6 @@ PrefabInstance:
     - target: {fileID: 453012, guid: 7518e6d86c572544cb2f51453141465f, type: 3}
       propertyPath: m_LocalScale.z
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 122982, guid: 7518e6d86c572544cb2f51453141465f, type: 3}
-      propertyPath: m_Name
-      value: SM_Prop_SatDish_08
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7518e6d86c572544cb2f51453141465f, type: 3}

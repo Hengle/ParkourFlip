@@ -37,7 +37,6 @@ public class GameManager : MonoBehaviour
     public float height;
     public bool gameEnd;
     public int coinCount;
-    private int _resetCount;
 
    /* public enum STATE
     {

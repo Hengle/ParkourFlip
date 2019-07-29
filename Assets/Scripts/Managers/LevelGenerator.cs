@@ -10,11 +10,11 @@ public class LevelGenerator : MonoSingleton<LevelGenerator>
     private BuildManager buildManager;
 
     Vector3 startPosition = new Vector3(-21.478f, -13.85f, 0);
-    Vector3 startPositionBackground = new Vector3(-21.478f, -13.85f, 100);
+    Vector3 startPositionBackground = new Vector3(45.822f, -13.85f, 70);
     Vector3 stepVector;
     Vector3 nextTargetPosition;
     Vector3 nextTargetPositionBackground;
-    Vector3 stepBackgroundVector = new Vector3(50, 0, 0);
+    Vector3 stepBackgroundVector = new Vector3(30, 0, 0);
 
     private int _randomX;
 
@@ -67,7 +67,7 @@ public class LevelGenerator : MonoSingleton<LevelGenerator>
 
     public void createLevel(int countOfBuild, string cityName)
     {
-        _randomX = Random.Range(45, 100);
+        _randomX = 80;
         stepVector = new Vector3(_randomX, 0, 0);
 
         buildManager.buildingScripts.Clear();
@@ -90,6 +90,8 @@ public class LevelGenerator : MonoSingleton<LevelGenerator>
 
             randomType = Random.Range(0, getBackGroundPrefabCount(cityName));
 
+            _randomX = Random.Range(45, 100);
+            stepVector = new Vector3(_randomX, 0, 0);
             buildManager.buildingScripts.Add(go.GetComponent<BuildingScript>());
             nextTargetPosition += stepVector;
 
@@ -97,7 +99,7 @@ public class LevelGenerator : MonoSingleton<LevelGenerator>
             //nextTargetPositionBackground += stepVector;
         }
 
-        for (int i = 0; i < countOfBuild * 2; i++)
+        for (int i = 0; i < countOfBuild * 3; i++)
         {
             int randomType = Random.Range(0, getBackGroundPrefabCount(cityName));
             backgroundBuildsPool.SpawnFromPool(cityName, randomType, nextTargetPositionBackground);

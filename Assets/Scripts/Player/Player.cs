@@ -54,6 +54,7 @@ public class Player : MonoBehaviour
     private bool isJump;
     private bool isFlying;
     private bool isBigObstacle;
+    private bool isNormalObstacle;
     private bool isSmallObstacle;
     
     // Particle Effects
@@ -172,6 +173,15 @@ public class Player : MonoBehaviour
         else
         {
             _Anim.SetBool("isSmallObstacle", false);
+        }
+        
+        if (isNormalObstacle)
+        {
+            _Anim.SetBool("isNormalObstacle", true);
+        }
+        else
+        {
+            _Anim.SetBool("isNormalObstacle", false);
         }
         
         if (isWin)
@@ -395,6 +405,11 @@ public class Player : MonoBehaviour
             isBigObstacle = true;
         }
         
+        if (other.gameObject.tag == "ObstacleNormal")
+        {
+            isNormalObstacle = true;
+        }
+        
         if (other.gameObject.tag == "ObstacleSmall")
         {
             isSmallObstacle = true;
@@ -437,6 +452,11 @@ public class Player : MonoBehaviour
         if (other.gameObject.tag == "ObstacleBig")
         {
             isBigObstacle = false;
+        }
+        
+        if (other.gameObject.tag == "ObstacleNormal")
+        {
+            isNormalObstacle = false;
         }
         
         if (other.gameObject.tag == "ObstacleSmall")
