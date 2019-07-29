@@ -44,6 +44,16 @@ public class BackgroundBuildsPool : MonoSingleton<BackgroundBuildsPool>
         }
 
     }
+    public void closeObjects()
+    {
+        GameObject[] objects = GameObject.FindGameObjectsWithTag("Background");
+
+        for (int i = 0; i < objects.Length; i++)
+        {
+            objects[i].SetActive(false);
+        }
+    }
+
 
     public GameObject SpawnFromPool(string cityName, int buildType, Vector3 position)
     {
