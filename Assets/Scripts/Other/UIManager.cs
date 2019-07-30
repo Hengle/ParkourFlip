@@ -53,7 +53,8 @@ public class UIManager : MonoBehaviour
     [Header("Restart Button ")]
     public GameObject restartButton;
 
-    
+    [Header("NextLevel Button ")]
+    public GameObject NextLevel;
     
     [Header("LevelCompletePanel ")]
     [Header("Level Text ")]
@@ -72,7 +73,7 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI scoreText;
 
     public bool canClick;
-
+    public bool canClickNextLevel;
     private void Start()
     {
     }
@@ -80,15 +81,7 @@ public class UIManager : MonoBehaviour
     private void Update()
     {
         CollectionUpdate();
-            
-        if (!canClick)
-        {
-            ShowCoinText();
-        }
-        else
-        {
-            ShowCoinTextZero();
-        }
+        ShowCoinText();    
     }
 
 
@@ -142,12 +135,6 @@ public class UIManager : MonoBehaviour
     {
         coinText.text = GameManager.Instance.GetCoinCount().ToString();
     }
-    
-    public void ShowCoinTextZero()
-    {
-        coinText.text = GameManager.Instance.GetCoinCountZero().ToString();
-    }
-
     public IEnumerator ShowRestartButton()
     {
         canClick = false;

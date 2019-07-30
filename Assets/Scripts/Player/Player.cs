@@ -56,6 +56,9 @@ public class Player : MonoBehaviour
     private bool isBigObstacle;
     private bool isNormalObstacle;
     private bool isSmallObstacle;
+    //Loading
+    public Animator loadingAnim;
+    private bool _resetLoad;
     
     // Particle Effects
     private GameObject jumpingEffects;
@@ -76,11 +79,6 @@ public class Player : MonoBehaviour
         return velocityXz + velocityY;
     }
 
-    
-    private void Start()
-    {
-        //_cam.transform.position = 
-    }
 
     private void FixedUpdate()
     {
@@ -110,7 +108,25 @@ public class Player : MonoBehaviour
             SmoothFlip();
         }
     }
-    
+
+    public IEnumerator PlayerResets()
+    {
+        loadingAnim.SetBool("Reset" , true);
+        gameObject.SetActive(true);
+        VirtualCamera.transform.position = cameraPos;
+        transform.position = startPos;
+        transform.eulerAngles = new Vector3(0,0,0);
+        _rb.useGravity = true;
+        canJump = false;
+        isWin = false;
+        isDead = false;
+        gameStart = true;
+        startBuilding = false;
+        UIManager.Instance.ShowGameStartPanel();
+        yield return new WaitForSeconds(0.5f);
+        loadingAnim.SetBool("Reset" , false);
+        
+    }
     public void PlayerReset()
     {
         gameObject.SetActive(true);

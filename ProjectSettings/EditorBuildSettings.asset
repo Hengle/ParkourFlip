@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Level/GameAnalticsScene.unity
     guid: 8accf8dbc0e174d46affbdf0b6fc7384
   - enabled: 1
-    path: Assets/Level/Level 1.unity
-    guid: e23186cf94ded07439af699b5625e94d
+    path: Assets/Level/GamePlay.unity
+    guid: 84d219774206312418b6d657458475fc
   m_configObjects: {}

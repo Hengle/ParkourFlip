@@ -41,7 +41,6 @@ public class BuildingPoolManager : MonoSingleton<BuildingPoolManager>
                     objectPool.Enqueue(obj);
                 }
                 string key = pool.city + j;
-//                Debug.Log(key);
                 poolDictionary.Add(key, objectPool);
             }
 
@@ -61,14 +60,17 @@ public class BuildingPoolManager : MonoSingleton<BuildingPoolManager>
 
         for (int i = 0; i < objects.Length; i++)
         {
-            objects[i].SetActive(false);
+            if(objects[i].activeSelf)
+               objects[i].SetActive(false);
         }
     }
 
     public void spawnStartBuild(Vector3 position)
     {
+
         startBuild.transform.position = position;
         startBuild.SetActive(true);
+        startBuild.transform.GetChild(0).gameObject.SetActive(true);
     }
     public GameObject spawnEndBuild(Vector3 position)
     {
@@ -81,10 +83,10 @@ public class BuildingPoolManager : MonoSingleton<BuildingPoolManager>
     {
 
         string tag = cityName + buildType;
-        Debug.Log(tag);
+       // Debug.Log(tag);
         if (!poolDictionary.ContainsKey(tag))
         {
-            Debug.Log(tag + "doesn't exist.");
+            //Debug.Log(tag + "doesn't exist.");
             return null;
         }
 

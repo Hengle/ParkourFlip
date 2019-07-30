@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4619795389592768049}
   - component: {fileID: 4619795389592768050}
   m_Layer: 0
-  m_Name: ObstacleNormal
+  m_Name: ObstacleNormal_V1
   m_TagString: ObstacleNormal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,8 +43,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.9124873, y: 1, z: 0.9999999}
-  m_Center: {x: -0.12364468, y: 0, z: 0}
+  m_Size: {x: 4.541758, y: 0.99999976, z: 0.9999999}
+  m_Center: {x: -0.4382802, y: 0, z: 0}
 --- !u!1001 &7044575806083491757
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -102,15 +102,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 402438, guid: 79d39b0d041480b479fb5cc05284aa87, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.33619434
+      value: 0.40343323
       objectReference: {fileID: 0}
     - target: {fileID: 402438, guid: 79d39b0d041480b479fb5cc05284aa87, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.9454784
+      value: 2.4975276
       objectReference: {fileID: 0}
     - target: {fileID: 402438, guid: 79d39b0d041480b479fb5cc05284aa87, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.58095676
+      value: 0.69714814
       objectReference: {fileID: 0}
     - target: {fileID: 3334866, guid: 79d39b0d041480b479fb5cc05284aa87, type: 3}
       propertyPath: m_Mesh

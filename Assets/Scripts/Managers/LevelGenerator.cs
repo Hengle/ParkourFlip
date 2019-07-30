@@ -10,12 +10,16 @@ public class LevelGenerator : MonoSingleton<LevelGenerator>
     private BuildManager buildManager;
 
     Vector3 startPosition = new Vector3(-21.478f, -13.85f, 0);
-    Vector3 startPositionBackground = new Vector3(45.822f, -13.85f, 70);
+    Vector3 startPositionBackground = new Vector3(15f, -13.85f, 60);
     Vector3 stepVector;
     Vector3 nextTargetPosition;
     Vector3 nextTargetPositionBackground;
-    Vector3 stepBackgroundVector = new Vector3(30, 0, 0);
+    Vector3 stepBackgroundVector = new Vector3(48, 0, 0);
 
+
+    private float _endBuildPosition;
+    private float _backGroundCount;
+    private float _endStartDif;
     private int _randomX;
 
     public void Awake()
@@ -32,11 +36,6 @@ public class LevelGenerator : MonoSingleton<LevelGenerator>
         createLevel(2, "Istanbul");
     }
 
-    private void Update()
-    {
-        Debug.Log(stepVector);
-    }
-
     int getPrefabCount(string cityName)
     {
         int condition = buildingPoolManager.cityPool.Count;
@@ -47,7 +46,6 @@ public class LevelGenerator : MonoSingleton<LevelGenerator>
                 return buildingPoolManager.cityPool[i].buildPrefabs.Length;
             }
         }
-
         return 0;
     }
 
@@ -70,6 +68,8 @@ public class LevelGenerator : MonoSingleton<LevelGenerator>
         _randomX = 80;
         stepVector = new Vector3(_randomX, 0, 0);
 
+        nextTargetPositionBackground = startPositionBackground;
+
         buildManager.buildingScripts.Clear();
 
         nextTargetPosition = startPosition;
@@ -85,21 +85,29 @@ public class LevelGenerator : MonoSingleton<LevelGenerator>
         {
 
             int randomType = Random.Range(0, getPrefabCount(cityName));
-
+            
             GameObject go = buildingPoolManager.SpawnFromPool(cityName, randomType, nextTargetPosition);
 
             randomType = Random.Range(0, getBackGroundPrefabCount(cityName));
-
+            
             _randomX = Random.Range(45, 100);
             stepVector = new Vector3(_randomX, 0, 0);
-            buildManager.buildingScripts.Add(go.GetComponent<BuildingScript>());
+            //buildManager.buildingScripts.Add(go.GetComponent<BuildingScript>());
             nextTargetPosition += stepVector;
 
             //buildingPoolManager.SpawnFromPool(cityName, randomType, nextTargetPositionBackground);
             //nextTargetPositionBackground += stepVector;
         }
+       
+        GameObject g = buildingPoolManager.spawnEndBuild(nextTargetPosition);
+        
+        _endBuildPosition = nextTargetPosition.x;
+        
+        _endStartDif = _endBuildPosition + startPosition.x;
 
-        for (int i = 0; i < countOfBuild * 3; i++)
+        _backGroundCount = _endStartDif / 45 + 1;
+        
+        for (int i = 0; i < _backGroundCount; i++)
         {
             int randomType = Random.Range(0, getBackGroundPrefabCount(cityName));
             backgroundBuildsPool.SpawnFromPool(cityName, randomType, nextTargetPositionBackground);
@@ -107,10 +115,6 @@ public class LevelGenerator : MonoSingleton<LevelGenerator>
             nextTargetPositionBackground += stepBackgroundVector;
         }
 
-        GameObject g = buildingPoolManager.spawnEndBuild(nextTargetPosition);
-        buildManager.buildingScripts.Add(g.GetComponent<BuildingScript>());
-
+        // buildManager.buildingScripts.Add(g.GetComponent<BuildingScript>());
     }
-
-
 }

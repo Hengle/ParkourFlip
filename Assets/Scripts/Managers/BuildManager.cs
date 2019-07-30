@@ -21,15 +21,15 @@ public class BuildManager : MonoSingleton<BuildManager>
     {
         GameObject[] tempBuilds = GameObject.FindGameObjectsWithTag("Ground");
 
-       // buildingScripts.Clear();
+        buildingScripts.Clear();
 
-        /*for (int i = 0; i < tempBuilds.Length; i++)
+        for (int i = 0; i < tempBuilds.Length; i++)
         {
             if (tempBuilds[i].GetComponent<BuildingScript>() != null && tempBuilds[i].activeInHierarchy)
             {
                buildingScripts.Add(tempBuilds[i].GetComponent<BuildingScript>());
             }
-        }*/
+        }
     }
 
 

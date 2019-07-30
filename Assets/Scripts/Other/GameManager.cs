@@ -75,7 +75,6 @@ public class GameManager : MonoBehaviour
         {
             NextLevel();
         }
-
         
         if (Player.Instance.isDead)
         {
@@ -91,7 +90,8 @@ public class GameManager : MonoBehaviour
             {
                 if (!Player.Instance.isDead)
                 {
-                    _nextTarget = BuildManager.Instance.buildingScripts[i+1].target;
+                    if(i+1!= BuildManager.Instance.buildingScripts.Count)
+                        _nextTarget = BuildManager.Instance.buildingScripts[i+1].target;
                 }
                 else 
                 {
@@ -105,22 +105,26 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            BuildManager.Instance.ControlBuildings();
             UIManager.Instance.HideGameStartPanel();
             _nextTarget = BuildManager.Instance.buildingScripts[0].target;
         }
     }
 
-    private void NextLevel()
+    public void NextLevel()
     {
         UIManager.Instance.ShowLevelCompletePanel();
         UIManager.Instance.ShowWinText();
+        UIManager.Instance.canClickNextLevel = true;
+        BuildManager.Instance.ControlBuildings();
         
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && UIManager.Instance.canClickNextLevel)
         {
+            UIManager.Instance.canClickNextLevel = false;
             ResetsCollection();
             CollectionManager.Instance.levelOver();
             StageManager.Instance.LevelUp();
-            Player.Instance.PlayerReset();
+            StartCoroutine(Player.Instance.PlayerResets());
             UIManager.Instance.HideLevelCompletePanel();
             gameEnd = false;
         }
@@ -143,7 +147,7 @@ public class GameManager : MonoBehaviour
             _deadAnim = false;
             UIManager.Instance.canClick = false;
             UIManager.Instance.HideGameOverPanel();
-            Player.Instance.PlayerReset();
+            StartCoroutine(Player.Instance.PlayerResets());
         }
     }
 
@@ -156,7 +160,6 @@ public class GameManager : MonoBehaviour
     public IEnumerator DeadAnim()
     {
         ResetsCollection();
-        GetCoinCountZero();
         UIManager.Instance.HideGameStartPanel();
         StartCoroutine(ParticleManager.Instance.DeathEffects());
         Player.Instance._rb.useGravity = true;
@@ -171,14 +174,9 @@ public class GameManager : MonoBehaviour
     {
         return coinCount;
     }
-
-    public int GetCoinCountZero()
-    {
-        return coinCount = 0;
-    }
+   
     public int GetFlipComboCount()
     {
         return combo + 1;
     }
-
 }

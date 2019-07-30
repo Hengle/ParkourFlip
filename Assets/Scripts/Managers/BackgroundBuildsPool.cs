@@ -13,9 +13,10 @@ public class BackgroundBuildsPool : MonoSingleton<BackgroundBuildsPool>
     }
 
 
+    
     [Header("Prefabs")]
     public List<BuildingPool> cityPool;
-
+    
     public Dictionary<string, Queue<GameObject>> poolDictionary;
 
     void Awake()
@@ -36,12 +37,13 @@ public class BackgroundBuildsPool : MonoSingleton<BackgroundBuildsPool>
                     objectPool.Enqueue(obj);
                 }
                 string key = pool.city + j;
-                Debug.Log(key);
+                //Debug.Log(key);
                 poolDictionary.Add(key, objectPool);
             }
 
             counter++;
         }
+
 
     }
     public void closeObjects()
@@ -54,15 +56,14 @@ public class BackgroundBuildsPool : MonoSingleton<BackgroundBuildsPool>
         }
     }
 
-
     public GameObject SpawnFromPool(string cityName, int buildType, Vector3 position)
     {
 
         string tag = cityName + buildType;
-        Debug.Log(tag);
+       // Debug.Log(tag);
         if (!poolDictionary.ContainsKey(tag))
         {
-            Debug.Log(tag + "doesn't exist.");
+            //Debug.Log(tag + "doesn't exist.");
             return null;
         }
 

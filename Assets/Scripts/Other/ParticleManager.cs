@@ -72,7 +72,7 @@ public class ParticleManager : MonoBehaviour
     {
         GameEndEffect.transform.position = Player.Instance.transform.position + dif;
         GameEndEffect.SetActive(true);
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(3f);
         GameEndEffect.SetActive(false);
     }
     
