@@ -48,9 +48,20 @@ public class StageManager : MonoSingleton<StageManager>
     public void LevelUp() // Bir sonraki stage;
     {
         buildingPoolManager.closeObjects();
+
+        if (CurrentLevel <= 2)
+        {
+            randomLevel = 1;
+            Debug.Log(randomLevel + "randomlevel < 2 ");
+        }
+        else
+        {
+            Debug.Log(randomLevel + "randomlevel > 2 ");
+            randomLevel = Random.Range(-1, 3);
+        }
         
-        randomLevel = Random.Range(-1, 3);
         levelGenerator.createLevel(randomLevel + CurrentLevel,"Istanbul");
+
         CurrentLevel = PlayerPrefs.GetInt("Level");
 
         PlayerPrefs.SetInt("Level", ++CurrentLevel);

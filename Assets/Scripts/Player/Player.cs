@@ -125,7 +125,6 @@ public class Player : MonoBehaviour
         UIManager.Instance.ShowGameStartPanel();
         yield return new WaitForSeconds(0.5f);
         loadingAnim.SetBool("Reset" , false);
-        
     }
     public void PlayerReset()
     {
@@ -234,6 +233,9 @@ public class Player : MonoBehaviour
         {
             GameManager.Instance.StartGame();
             gameStart = false;
+            isBigObstacle = false;
+            isNormalObstacle = false;
+            isSmallObstacle = false;
         }
     }
     private void FlipControl()
@@ -262,9 +264,8 @@ public class Player : MonoBehaviour
                         Lauch();
                     }
                 }
-                startBuilding = true; 
+                Invoke("StartingMovement",1f);
             }
-            
          }
         
         if (Input.GetMouseButtonUp(0))
@@ -274,9 +275,15 @@ public class Player : MonoBehaviour
                  _isTurn = false;
                  isStop = true;
              }
-              
          }
-      
+    }
+
+    private void StartingMovement()
+    {
+        if (!startBuilding)
+        {
+            startBuilding = true;
+        }
     }
 
     private void SmoothFlip()
@@ -329,12 +336,17 @@ public class Player : MonoBehaviour
         if (_isGrounded && !GameManager.Instance.gameEnd)
         {
             desiredPosX = GameManager.Instance._nextTarget.position.x - _rb.position.x;
-            
+            Debug.Log("desiredPosX: " + desiredPosX);
+
             if(desiredPosX > 90)
             {
                 GameManager.Instance.height = Random.Range(30,40);
             }
-            else if(desiredPosX >= 45 && desiredPosX <= 90)
+            else if(desiredPosX >= 65 && desiredPosX <= 90)
+            {
+                GameManager.Instance.height = Random.Range(24,28);
+            }
+            else if(desiredPosX >= 45 && desiredPosX <= 65)
             {
                 GameManager.Instance.height = Random.Range(18,21);
             }

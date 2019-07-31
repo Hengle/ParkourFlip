@@ -115,7 +115,7 @@ public class GameManager : MonoBehaviour
     {
         UIManager.Instance.ShowLevelCompletePanel();
         UIManager.Instance.ShowWinText();
-        UIManager.Instance.canClickNextLevel = true;
+        Invoke("canClickNextLevelButton",2);
         BuildManager.Instance.ControlBuildings();
         
         if (Input.GetMouseButtonDown(0) && UIManager.Instance.canClickNextLevel)
@@ -128,6 +128,10 @@ public class GameManager : MonoBehaviour
             UIManager.Instance.HideLevelCompletePanel();
             gameEnd = false;
         }
+    }
+    private void canClickNextLevelButton()
+    {
+        UIManager.Instance.canClickNextLevel = true;
     }
     public void PlayerDead()
     {
@@ -160,7 +164,7 @@ public class GameManager : MonoBehaviour
     public IEnumerator DeadAnim()
     {
         ResetsCollection();
-        UIManager.Instance.HideGameStartPanel();
+        UIManager.Instance.CloseGameStart();
         StartCoroutine(ParticleManager.Instance.DeathEffects());
         Player.Instance._rb.useGravity = true;
         yield return new WaitForSeconds(1f);

@@ -242,6 +242,7 @@
             <e p="BuildingPool.cs" t="Include" />
             <e p="BuildingPoolManager.cs" t="Include" />
             <e p="BuildManager.cs" t="Include" />
+            <e p="CoinManager.cs" t="Include" />
             <e p="CoinSpawnManager.cs" t="Include" />
             <e p="CollectionManager.cs" t="Include" />
             <e p="LevelGenerator.cs" t="Include" />
@@ -255,6 +256,7 @@
             <e p="GameEnd.cs" t="Include" />
             <e p="GameManager.cs" t="Include" />
             <e p="LevelManager.cs" t="Include" />
+            <e p="Magnet.cs" t="Include" />
             <e p="ObjectPooler.cs" t="Include" />
             <e p="ParticleManager.cs" t="Include" />
             <e p="TransitionScene.cs" t="Include" />

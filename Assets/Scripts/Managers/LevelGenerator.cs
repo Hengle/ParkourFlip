@@ -17,6 +17,8 @@ public class LevelGenerator : MonoSingleton<LevelGenerator>
     Vector3 stepBackgroundVector = new Vector3(48, 0, 0);
 
 
+    private Vector3 _difference = new Vector3(27,0,0);
+    public Vector3 _trajectory;
     private float _endBuildPosition;
     private float _backGroundCount;
     private float _endStartDif;
@@ -91,6 +93,7 @@ public class LevelGenerator : MonoSingleton<LevelGenerator>
             randomType = Random.Range(0, getBackGroundPrefabCount(cityName));
             
             _randomX = Random.Range(45, 100);
+            Debug.Log("randomx: " + _randomX);
             stepVector = new Vector3(_randomX, 0, 0);
             //buildManager.buildingScripts.Add(go.GetComponent<BuildingScript>());
             nextTargetPosition += stepVector;
@@ -101,20 +104,27 @@ public class LevelGenerator : MonoSingleton<LevelGenerator>
        
         GameObject g = buildingPoolManager.spawnEndBuild(nextTargetPosition);
         
-        _endBuildPosition = nextTargetPosition.x;
+        _endBuildPosition = g.transform.position.x;
         
         _endStartDif = _endBuildPosition + startPosition.x;
 
         _backGroundCount = _endStartDif / 45 + 1;
         
+        
         for (int i = 0; i < _backGroundCount; i++)
         {
             int randomType = Random.Range(0, getBackGroundPrefabCount(cityName));
             backgroundBuildsPool.SpawnFromPool(cityName, randomType, nextTargetPositionBackground);
-
             nextTargetPositionBackground += stepBackgroundVector;
         }
 
         // buildManager.buildingScripts.Add(g.GetComponent<BuildingScript>());
     }
+
+
+    public float getEndBuildPos()
+    {
+        return _endBuildPosition;
+    }
+    
 }

@@ -16,6 +16,7 @@ TagManager:
   - ObstacleSmall
   - FxTemporaire
   - ObstacleNormal
+  - Background
   layers:
   - Default
   - TransparentFX

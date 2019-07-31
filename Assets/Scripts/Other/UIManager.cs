@@ -5,6 +5,20 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+public static class Remapper
+{
+    public static float Remap(this float value, float fromMin, float fromMax, float toMin, float toMax)
+    {
+        var fromAbs = value - fromMin;
+        var fromMaxAbs = fromMax - fromMin;
+        var normal = fromAbs / fromMaxAbs;
+        var toMaxAbs = toMax - toMin;
+        var toAbs = toMaxAbs * normal;
+        var to = toAbs + toMin;
+        return to;
+    }
+}
+
 public class UIManager : MonoBehaviour
 {
     #region Singleton
@@ -31,6 +45,9 @@ public class UIManager : MonoBehaviour
     [Header("LevelComplete")]
     public GameObject levelCompletePanel;
 
+    [Header("RiskyText Text")]
+    public GameObject riskyText;
+    
     [Header("Perfect Text")]
     public GameObject perfectText;
     
@@ -71,17 +88,35 @@ public class UIManager : MonoBehaviour
     
     [Header("Score Text ")]
     public TextMeshProUGUI scoreText;
+        
+    [Header("CurrentLevelText Text ")]
+    public TextMeshProUGUI CurrentLevelText;
+    
+    [Header("NextLevelText Text ")]
+    public TextMeshProUGUI NextLevelText;
 
+    public Image Bar;
+    
+    private float _currentPos;
+    private float _endPosition;
+    private float startPosition = -21.478f;
+    private float _progress;
+    
     public bool canClick;
     public bool canClickNextLevel;
+
+
     private void Start()
     {
+        StartCoroutine("SetProgressBar");
     }
 
     private void Update()
     {
         CollectionUpdate();
-        ShowCoinText();    
+        ShowCoinText();
+        
+        Debug.Log(_progress +"_progress");
     }
 
 
@@ -107,12 +142,20 @@ public class UIManager : MonoBehaviour
     {
         gameOverPanel.SetActive(true);
     }
-   
+
+
     public void HideGameOverPanel()
     {
         gameOverPanel.SetActive(false);
     }
+    
+   
     public void HideGameStartPanel()
+    {
+        Invoke("CloseGameStart",0.8f);
+    }
+    
+    public void CloseGameStart()
     {
         gameStartPanel.SetActive(false);
     }
@@ -135,6 +178,23 @@ public class UIManager : MonoBehaviour
     {
         coinText.text = GameManager.Instance.GetCoinCount().ToString();
     }
+    
+    public IEnumerator SetProgressBar()
+    {
+        Vector3 pos = Vector3.one;
+        CurrentLevelText.text = StageManager.Instance.getCurrentLevel().ToString();
+        NextLevelText.text = (StageManager.Instance.getCurrentLevel()+ 1).ToString();
+        while (true)
+        {
+            _currentPos = Player.Instance.transform.localPosition.x;
+            Debug.Log(startPosition+","+_endPosition+","+_currentPos);
+            pos.x = Remapper.Remap(_currentPos, startPosition, _endPosition, 0, 1);
+            Bar.transform.localScale = pos;
+            yield return new WaitForFixedUpdate();
+        }
+    }
+   
+
     public IEnumerator ShowRestartButton()
     {
         canClick = false;
@@ -172,5 +232,12 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         nearMissText.SetActive(false);
     }
-    
+    public IEnumerator ShowRiskyText()
+    {
+        riskyText.gameObject.SetActive(true);
+        iTween.ShakePosition(riskyText,iTween.Hash(  "y" , riskyText.transform.position.y ,"amount", 15f, "time" , .5f ,"easetype", "easeOutBounce"));
+        yield return new WaitForSeconds(.5f);
+        riskyText.SetActive(false);
+    }
 }
+
