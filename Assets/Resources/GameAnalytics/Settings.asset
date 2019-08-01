@@ -26,29 +26,24 @@ MonoBehaviour:
   UserMessagesFailed: 0
   CustomArea: 
   gameKey:
-  - 3a8742397d0b3e07878419fd13502a14
   - e98539875640d305df6abf87f7db4717
   secretKey:
-  - 7058ec13d68982998e64254023ade33c5a3f629c
   - 90fe37f8469750704cb88ebb7d2875cf8adcb28a
   Build:
   - 0.1
-  - 0.1
   SelectedPlatformStudio:
   - Hero Games
-  - Hero Games
   SelectedPlatformGame:
-  - ParkourFlip - Android
-  - ParkourFlip - iOS
-  SelectedPlatformGameID: ab300100ac300100
-  SelectedStudio: 0100000001000000
-  SelectedGame: 0300000004000000
+  - Parkour Flip
+  SelectedPlatformGameID: ac300100
+  SelectedStudio: 02000000
+  SelectedGame: 06000000
   NewVersion: 
   Changes: 
   SignUpOpen: 0
   StudioName: HeroGames
   GameName: ParkourFlip - iOS
-  EmailGA: melihcol@gmail.com
+  EmailGA: hello@herogamestudio.com
   IntroScreen: 0
   InfoLogEditor: 1
   InfoLogBuild: 1
@@ -62,7 +57,7 @@ MonoBehaviour:
   ResourceItemTypes: []
   ResourceCurrencies: []
   LastCreatedGamePlatform: -1
-  Platforms: 0b00000008000000
+  Platforms: 08000000
   CurrentInspectorState: 1
   ClosedHints: 
   DisplayHints: 0
@@ -89,7 +84,7 @@ MonoBehaviour:
   IncludeGooglePlay: 1
   FpsCriticalThreshold: 20
   FpsCirticalSubmitInterval: 1
-  PlatformFoldOut: 0000
+  PlatformFoldOut: 00
   CustomDimensions01FoldOut: 0
   CustomDimensions02FoldOut: 0
   CustomDimensions03FoldOut: 0

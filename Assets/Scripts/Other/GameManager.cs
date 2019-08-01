@@ -108,6 +108,7 @@ public class GameManager : MonoBehaviour
             BuildManager.Instance.ControlBuildings();
             UIManager.Instance.HideGameStartPanel();
             _nextTarget = BuildManager.Instance.buildingScripts[0].target;
+           // StartCoroutine( UIManager.Instance.SetProgressBar());
         }
     }
 
@@ -115,12 +116,12 @@ public class GameManager : MonoBehaviour
     {
         UIManager.Instance.ShowLevelCompletePanel();
         UIManager.Instance.ShowWinText();
-        Invoke("canClickNextLevelButton",2);
+        StartCoroutine(UIManager.Instance.ShowNextLevelButton());
         BuildManager.Instance.ControlBuildings();
+        Debug.Log(UIManager.Instance.canClickNextLevel);
         
         if (Input.GetMouseButtonDown(0) && UIManager.Instance.canClickNextLevel)
         {
-            UIManager.Instance.canClickNextLevel = false;
             ResetsCollection();
             CollectionManager.Instance.levelOver();
             StageManager.Instance.LevelUp();
@@ -129,10 +130,7 @@ public class GameManager : MonoBehaviour
             gameEnd = false;
         }
     }
-    private void canClickNextLevelButton()
-    {
-        UIManager.Instance.canClickNextLevel = true;
-    }
+    
     public void PlayerDead()
     {
         if (!_deadAnim)
@@ -160,6 +158,7 @@ public class GameManager : MonoBehaviour
         CollectionManager.Instance.resetFlip();
         CollectionManager.Instance.resetPerfect();
         CollectionManager.Instance.resetCollectedCoins();
+        UIManager.Instance.canClickNextLevel = false;
     }
     public IEnumerator DeadAnim()
     {

@@ -19,7 +19,7 @@ public class BuildManager : MonoSingleton<BuildManager>
     }
     public void ControlBuildings()
     {
-        CoinManager.Instance.FindCoinsInLevel();
+        //CoinManager.Instance.FindCoinsInLevel();
         
         GameObject[] tempBuilds = GameObject.FindGameObjectsWithTag("Ground");
 

@@ -259,6 +259,7 @@
             <e p="Magnet.cs" t="Include" />
             <e p="ObjectPooler.cs" t="Include" />
             <e p="ParticleManager.cs" t="Include" />
+            <e p="Remapper.cs" t="Include" />
             <e p="TransitionScene.cs" t="Include" />
             <e p="UIManager.cs" t="Include" />
           </e>

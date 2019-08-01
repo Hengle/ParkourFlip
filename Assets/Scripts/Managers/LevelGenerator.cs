@@ -93,7 +93,6 @@ public class LevelGenerator : MonoSingleton<LevelGenerator>
             randomType = Random.Range(0, getBackGroundPrefabCount(cityName));
             
             _randomX = Random.Range(45, 100);
-            Debug.Log("randomx: " + _randomX);
             stepVector = new Vector3(_randomX, 0, 0);
             //buildManager.buildingScripts.Add(go.GetComponent<BuildingScript>());
             nextTargetPosition += stepVector;

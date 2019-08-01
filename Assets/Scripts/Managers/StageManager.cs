@@ -52,11 +52,9 @@ public class StageManager : MonoSingleton<StageManager>
         if (CurrentLevel <= 2)
         {
             randomLevel = 1;
-            Debug.Log(randomLevel + "randomlevel < 2 ");
         }
         else
         {
-            Debug.Log(randomLevel + "randomlevel > 2 ");
             randomLevel = Random.Range(-1, 3);
         }
         

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CoinManager : MonoSingleton<CoinManager>
+public class CoinManager : MonoBehaviour
 {
     [SerializeField]
     private List<Coin> _coins;

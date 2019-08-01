@@ -4,21 +4,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-
-public static class Remapper
-{
-    public static float Remap(this float value, float fromMin, float fromMax, float toMin, float toMax)
-    {
-        var fromAbs = value - fromMin;
-        var fromMaxAbs = fromMax - fromMin;
-        var normal = fromAbs / fromMaxAbs;
-        var toMaxAbs = toMax - toMin;
-        var toAbs = toMaxAbs * normal;
-        var to = toAbs + toMin;
-        return to;
-    }
-}
-
 public class UIManager : MonoBehaviour
 {
     #region Singleton
@@ -108,15 +93,12 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine("SetProgressBar");
     }
 
     private void Update()
     {
         CollectionUpdate();
         ShowCoinText();
-        
-        Debug.Log(_progress +"_progress");
     }
 
 
@@ -181,19 +163,29 @@ public class UIManager : MonoBehaviour
     
     public IEnumerator SetProgressBar()
     {
+        _currentPos = Player.Instance.transform.position.x;
         Vector3 pos = Vector3.one;
         CurrentLevelText.text = StageManager.Instance.getCurrentLevel().ToString();
         NextLevelText.text = (StageManager.Instance.getCurrentLevel()+ 1).ToString();
         while (true)
         {
-            _currentPos = Player.Instance.transform.localPosition.x;
-            Debug.Log(startPosition+","+_endPosition+","+_currentPos);
             pos.x = Remapper.Remap(_currentPos, startPosition, _endPosition, 0, 1);
             Bar.transform.localScale = pos;
             yield return new WaitForFixedUpdate();
         }
     }
-   
+    
+    public IEnumerator ShowNextLevelButton()
+    {
+        if (!canClickNextLevel)
+        {
+            NextLevel.SetActive(false);
+            canClickNextLevel = false;
+            yield return new WaitForSeconds(3f);
+            NextLevel.SetActive(true);
+            canClickNextLevel = true;
+        }
+    }
 
     public IEnumerator ShowRestartButton()
     {

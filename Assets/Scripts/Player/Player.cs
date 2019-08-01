@@ -336,7 +336,6 @@ public class Player : MonoBehaviour
         if (_isGrounded && !GameManager.Instance.gameEnd)
         {
             desiredPosX = GameManager.Instance._nextTarget.position.x - _rb.position.x;
-            Debug.Log("desiredPosX: " + desiredPosX);
 
             if(desiredPosX > 90)
             {
