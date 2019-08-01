@@ -47,6 +47,7 @@ public class Player : MonoBehaviour
     private bool canJump;
     private bool gameStart = true;
 
+    public bool riskyJump;
     //ForAnimation
     public Animator _Anim;
     public bool isWin;
@@ -262,6 +263,7 @@ public class Player : MonoBehaviour
                     if (canJump)
                     {
                         Lauch();
+                        
                     }
                 }
                 Invoke("StartingMovement",1f);
@@ -358,6 +360,12 @@ public class Player : MonoBehaviour
             _rb.useGravity = true;
             StartCoroutine(ParticleManager.Instance.JumpingEffects(jumpingEffects));
             CameraShake.Instance.isAnimationPlaying = true;
+            
+            if (riskyJump)
+            {
+                StartCoroutine(UIManager.Instance.ShowRiskyText());
+            }
+            
             _rb.velocity = CalculateLauncVelocity();
         }
     }
@@ -381,6 +389,7 @@ public class Player : MonoBehaviour
     {
         if (other.gameObject.tag == "Ground" && startBuilding && !isDead)
         {
+            riskyJump = false;
             ComboController.Instance.canFlip = true;
             rotationPowerTime = 0f;
             isJump = false;
@@ -416,6 +425,11 @@ public class Player : MonoBehaviour
             }
         }
 
+        if (other.gameObject.tag == "RiskyJump")
+        {
+            riskyJump = true;
+        }
+        
         if (other.gameObject.tag == "Jump")
         {
             canJump = true;
@@ -489,5 +503,6 @@ public class Player : MonoBehaviour
         {
             isSmallObstacle = false;
         }
+        
     }
 }

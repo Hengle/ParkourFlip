@@ -341,6 +341,11 @@
           <e p="TapticFeedback" t="Include">
             <e p="AndroidTaptic.cs" t="Include" />
             <e p="Example.cs" t="Include" />
+            <e p="Plugins" t="Include">
+              <e p="Android" t="Include">
+                <e p="AndroidManifest.xml" t="Include" />
+              </e>
+            </e>
             <e p="Taptic.cs" t="Include" />
           </e>
         </e>

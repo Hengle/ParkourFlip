@@ -226,9 +226,9 @@ public class UIManager : MonoBehaviour
     }
     public IEnumerator ShowRiskyText()
     {
-        riskyText.gameObject.SetActive(true);
-        iTween.ShakePosition(riskyText,iTween.Hash(  "y" , riskyText.transform.position.y ,"amount", 15f, "time" , .5f ,"easetype", "easeOutBounce"));
-        yield return new WaitForSeconds(.5f);
+        riskyText.SetActive(true);
+        iTween.ShakeScale(riskyText,iTween.Hash("x", 0.2f, "time", 1f, "easetype", "easeInOutSine"));
+        yield return new WaitForSeconds(1f);
         riskyText.SetActive(false);
     }
 }

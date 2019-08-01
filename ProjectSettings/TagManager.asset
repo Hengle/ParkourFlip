@@ -17,6 +17,7 @@ TagManager:
   - FxTemporaire
   - ObstacleNormal
   - Background
+  - RiskyJump
   layers:
   - Default
   - TransparentFX
