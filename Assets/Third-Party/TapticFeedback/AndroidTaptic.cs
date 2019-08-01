@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using UnityEngine;
+﻿using UnityEngine;
 
 public enum HapticTypes { Selection, Success, Warning, Failure, LightImpact, MediumImpact, HeavyImpact }
 public class AndroidTaptic {
@@ -31,34 +28,38 @@ public class AndroidTaptic {
     }
 
     public static void Haptic(HapticTypes type) {
-        switch (type) {
-            case HapticTypes.Selection:
-                AndroidVibrate(LightDuration, LightAmplitude);
-                break;
+        try {
+            switch (type) {
+                case HapticTypes.Selection:
+                    AndroidVibrate(LightDuration, LightAmplitude);
+                    break;
 
-            case HapticTypes.Success:
-                AndroidVibrate(_successPattern, _successPatternAmplitude, -1);
-                break;
+                case HapticTypes.Success:
+                    AndroidVibrate(_successPattern, _successPatternAmplitude, -1);
+                    break;
 
-            case HapticTypes.Warning:
-                AndroidVibrate(_warningPattern, _warningPatternAmplitude, -1);
-                break;
+                case HapticTypes.Warning:
+                    AndroidVibrate(_warningPattern, _warningPatternAmplitude, -1);
+                    break;
 
-            case HapticTypes.Failure:
-                AndroidVibrate(_failurePattern, _failurePatternAmplitude, -1);
-                break;
+                case HapticTypes.Failure:
+                    AndroidVibrate(_failurePattern, _failurePatternAmplitude, -1);
+                    break;
 
-            case HapticTypes.LightImpact:
-                AndroidVibrate(LightDuration, LightAmplitude);
-                break;
+                case HapticTypes.LightImpact:
+                    AndroidVibrate(LightDuration, LightAmplitude);
+                    break;
 
-            case HapticTypes.MediumImpact:
-                AndroidVibrate(MediumDuration, MediumAmplitude);
-                break;
+                case HapticTypes.MediumImpact:
+                    AndroidVibrate(MediumDuration, MediumAmplitude);
+                    break;
 
-            case HapticTypes.HeavyImpact:
-                AndroidVibrate(HeavyDuration, HeavyAmplitude);
-                break;
+                case HapticTypes.HeavyImpact:
+                    AndroidVibrate(HeavyDuration, HeavyAmplitude);
+                    break;
+            }
+        } catch (System.NullReferenceException e) {
+            Debug.Log(e.StackTrace);
         }
     }
 
@@ -79,7 +80,9 @@ public class AndroidTaptic {
 #endif
 
     public static void AndroidVibrate(long milliseconds) {
-        AndroidVibrator.Call("vibrate", milliseconds);
+        if (AndroidVibrator != null) {
+            AndroidVibrator.Call("vibrate", milliseconds);
+        }
     }
 
     public static void AndroidVibrate(long milliseconds, int amplitude) {
@@ -87,28 +90,48 @@ public class AndroidTaptic {
             AndroidVibrate(milliseconds);
         } else {
             VibrationEffectClassInitialization();
-            VibrationEffect = VibrationEffectClass.CallStatic<AndroidJavaObject>("createOneShot", new object[] { milliseconds, amplitude });
-            AndroidVibrator.Call("vibrate", VibrationEffect);
+            if (VibrationEffectClass != null) {
+                VibrationEffect = VibrationEffectClass.CallStatic<AndroidJavaObject>("createOneShot", new object[] { milliseconds, amplitude });
+                if (VibrationEffect != null && AndroidVibrator != null) {
+                    AndroidVibrator.Call("vibrate", VibrationEffect);
+                } else {
+                    AndroidVibrate(milliseconds);
+                }
+            } else {
+                AndroidVibrate(milliseconds);
+            }
         }
     }
 
     public static void AndroidVibrate(long[] pattern, int repeat) {
         if ((AndroidSDKVersion() < 26)) {
-            AndroidVibrator.Call("vibrate", pattern, repeat);
+            if (AndroidVibrator != null) {
+                AndroidVibrator.Call("vibrate", pattern, repeat);
+            }
         } else {
             VibrationEffectClassInitialization();
-            VibrationEffect = VibrationEffectClass.CallStatic<AndroidJavaObject>("createWaveform", new object[] { pattern, repeat });
-            AndroidVibrator.Call("vibrate", VibrationEffect);
+            if (VibrationEffectClass != null) {
+                VibrationEffect = VibrationEffectClass.CallStatic<AndroidJavaObject>("createWaveform", new object[] { pattern, repeat });
+                if (VibrationEffect != null && AndroidVibrator != null) {
+                    AndroidVibrator.Call("vibrate", VibrationEffect);
+                }
+            }
         }
     }
 
     public static void AndroidVibrate(long[] pattern, int[] amplitudes, int repeat) {
         if ((AndroidSDKVersion() < 26)) {
-            AndroidVibrator.Call("vibrate", pattern, repeat);
+            if (AndroidVibrator != null) {
+                AndroidVibrator.Call("vibrate", pattern, repeat);
+            }
         } else {
             VibrationEffectClassInitialization();
-            VibrationEffect = VibrationEffectClass.CallStatic<AndroidJavaObject>("createWaveform", new object[] { pattern, amplitudes, repeat });
-            AndroidVibrator.Call("vibrate", VibrationEffect);
+            if (VibrationEffectClass != null) {
+                VibrationEffect = VibrationEffectClass.CallStatic<AndroidJavaObject>("createWaveform", new object[] { pattern, amplitudes, repeat });
+                if (VibrationEffect != null && AndroidVibrator != null) {
+                    AndroidVibrator.Call("vibrate", VibrationEffect);
+                }
+            }
         }
     }
 
