@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
     }
 
     #endregion
-
+    
     //public List<BuildingScript> BuildingsList = new List<BuildingScript>();
     public int combo;
     public Transform _nextTarget;
@@ -65,6 +65,7 @@ public class GameManager : MonoBehaviour
 
 
    private bool _deadAnim;
+   private bool _nextAnim;
     private void Update()
     {
         if (!gameEnd)
@@ -73,7 +74,14 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            NextLevel();
+            if (!_nextAnim)
+            {
+                StartCoroutine(nextLevelAnim());
+            }
+            else
+            {
+                NextLevel();
+            }
         }
         
         if (Player.Instance.isDead)
@@ -112,16 +120,20 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void NextLevel()
+    private IEnumerator nextLevelAnim()
     {
         UIManager.Instance.ShowLevelCompletePanel();
         UIManager.Instance.ShowWinText();
         StartCoroutine(UIManager.Instance.ShowNextLevelButton());
         BuildManager.Instance.ControlBuildings();
-        Debug.Log(UIManager.Instance.canClickNextLevel);
-        
+        yield return new WaitForSeconds(.3f);
+        _nextAnim = true;
+    }
+    public void NextLevel()
+    {
         if (Input.GetMouseButtonDown(0) && UIManager.Instance.canClickNextLevel)
         {
+            _nextAnim = false;
             ResetsCollection();
             CollectionManager.Instance.levelOver();
             StageManager.Instance.LevelUp();

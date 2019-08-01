@@ -337,19 +337,19 @@ public class Player : MonoBehaviour
         {
             desiredPosX = GameManager.Instance._nextTarget.position.x - _rb.position.x;
 
-            if(desiredPosX > 90)
+            if(desiredPosX > 100)
             {
-                GameManager.Instance.height = Random.Range(30,40);
+                GameManager.Instance.height = Random.Range(36,40);
             }
-            else if(desiredPosX >= 65 && desiredPosX <= 90)
+            else if(desiredPosX >= 75 && desiredPosX <= 95)
             {
                 GameManager.Instance.height = Random.Range(24,28);
             }
-            else if(desiredPosX >= 45 && desiredPosX <= 65)
+            else if(desiredPosX >= 55 && desiredPosX <= 75)
             {
                 GameManager.Instance.height = Random.Range(18,21);
             }
-            else if(desiredPosX < 45)
+            else if(desiredPosX < 55)
             {
                 GameManager.Instance.height = Random.Range(15,18);
             }
@@ -400,7 +400,6 @@ public class Player : MonoBehaviour
                      && GameManager.Instance.combo != 0)
             {
                StartCoroutine(UIManager.Instance.ShowNormalText());
-
             }
             else if ((transform.eulerAngles.z < 15 || transform.eulerAngles.z > 345) && GameManager.Instance.combo != 0)
             {

@@ -17,6 +17,7 @@ public class LevelGenerator : MonoSingleton<LevelGenerator>
     Vector3 stepBackgroundVector = new Vector3(48, 0, 0);
 
 
+    private int _countOfBuild;
     private Vector3 _difference = new Vector3(27,0,0);
     public Vector3 _trajectory;
     private float _endBuildPosition;
@@ -35,7 +36,7 @@ public class LevelGenerator : MonoSingleton<LevelGenerator>
     {
         nextTargetPosition = startPosition;
         nextTargetPositionBackground = startPositionBackground;
-        createLevel(2, "Istanbul");
+        //createLevel(_countOfBuild, "Istanbul");
     }
 
     int getPrefabCount(string cityName)
@@ -92,7 +93,7 @@ public class LevelGenerator : MonoSingleton<LevelGenerator>
 
             randomType = Random.Range(0, getBackGroundPrefabCount(cityName));
             
-            _randomX = Random.Range(45, 100);
+            _randomX = Random.Range(55, 100);
             stepVector = new Vector3(_randomX, 0, 0);
             //buildManager.buildingScripts.Add(go.GetComponent<BuildingScript>());
             nextTargetPosition += stepVector;

@@ -30,7 +30,7 @@ public class StageManager : MonoSingleton<StageManager>
 
     private void Start()
     {
-        //levelGenerator.createLevel(5,"Istanbul");
+        levelGenerator.createLevel(PlayerPrefs.GetInt("Level"),"Istanbul");
         //buildManager.ControlBuildings();
         ControlLevel();
     }
